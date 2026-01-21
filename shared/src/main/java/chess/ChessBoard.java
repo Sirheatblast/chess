@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * A chessboard that can hold and rearrange chess pieces.
  * <p>
@@ -10,7 +13,7 @@ public class ChessBoard {
     private ChessPiece[][] board;
 
     public ChessBoard() {
-        
+        board = new ChessPiece[8][8];
     }
 
     /**
@@ -20,7 +23,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        board[position.getColumn()][position.getRow()] = piece;
+        board[position.getColumn()-1][position.getRow()-1] = piece;
     }
 
     /**
@@ -31,7 +34,7 @@ public class ChessBoard {
      * position
      */
     public ChessPiece getPiece(ChessPosition position) {
-        return board[position.getColumn()][position.getRow()];
+        return board[position.getColumn()-1][position.getRow()-1];
     }
 
     /**
@@ -40,49 +43,34 @@ public class ChessBoard {
      */
     public void resetBoard() {
         board = new ChessPiece[8][8];
+        setCol(0, ChessPiece.PieceType.ROOK);
+        setCol(1, ChessPiece.PieceType.KNIGHT);
+        setCol(2, ChessPiece.PieceType.BISHOP);
+        setCol(3, ChessPiece.PieceType.QUEEN);
+        setCol(4, ChessPiece.PieceType.KING);
+        setCol(5, ChessPiece.PieceType.BISHOP);
+        setCol(6, ChessPiece.PieceType.KNIGHT);
+        setCol(7, ChessPiece.PieceType.ROOK);
+    }
 
-        //Set white team
-        board[0] = new ChessPiece[] {
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.QUEEN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KING),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK)
-        };
-        board[1] = new ChessPiece[] {
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN)
-        };
+    private  void setCol(int idx, ChessPiece.PieceType pType){
+        board[idx][0] = new ChessPiece(ChessGame.TeamColor.WHITE, pType);
+        board[idx][1] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        board[idx][6] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        board[idx][7] = new ChessPiece(ChessGame.TeamColor.BLACK, pType);
+    }
 
-        //Set black team
-        board[7] = new ChessPiece[] {
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK)
-        };
-        board[6] = new ChessPiece[] {
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN),
-                new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN)
-        };
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ChessBoard that = (ChessBoard) o;
+        return Objects.deepEquals(board, that.board);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(board);
     }
 }
