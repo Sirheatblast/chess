@@ -9,11 +9,19 @@ public class PieceMoveCalculator {
     }
 
     //returns a list of available positions in the upward direction
-    protected Collection<ChessMove> checkUp(ChessBoard board, ChessPosition myPosition, ChessPiece.PieceType promotionPiece,int max){
+    protected Collection<ChessMove> checkUp(ChessBoard board, ChessPosition myPosition, ChessPiece.PieceType promotionPiece,int max,boolean canAttack){
         Collection<ChessMove> validMoves = new ArrayList<>();
         int currentPosY = myPosition.getRow()+1;
         while (currentPosY <= 8) {
-            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(canAttack&&other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,myPosition.getColumn()), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,myPosition.getColumn()), promotionPiece));
@@ -22,11 +30,19 @@ public class PieceMoveCalculator {
         return validMoves;
     }
     //returns a list of available positions in the downward direction
-    protected Collection<ChessMove> checkDown(ChessBoard board, ChessPosition myPosition, ChessPiece.PieceType promotionPiece,int max){
+    protected Collection<ChessMove> checkDown(ChessBoard board, ChessPosition myPosition, ChessPiece.PieceType promotionPiece,int max,boolean canAttack){
         Collection<ChessMove> validMoves = new ArrayList<>();
         int currentPosY = myPosition.getRow()-1;
         while (currentPosY >= 1) {
-            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(canAttack&&other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,myPosition.getColumn()), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,myPosition.getColumn()), promotionPiece));
@@ -39,7 +55,15 @@ public class PieceMoveCalculator {
         Collection<ChessMove> validMoves = new ArrayList<>();
         int currentPosX = myPosition.getColumn()+1;
         while (currentPosX <= 8) {
-            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(myPosition.getRow(),currentPosX), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(myPosition.getRow(),currentPosX), promotionPiece));
@@ -52,7 +76,15 @@ public class PieceMoveCalculator {
         Collection<ChessMove> validMoves = new ArrayList<>();
         int currentPosX = myPosition.getColumn()-1;
         while (currentPosX >= 1) {
-            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(myPosition.getRow(),currentPosX), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(myPosition.getRow(),currentPosX), promotionPiece));
@@ -66,7 +98,15 @@ public class PieceMoveCalculator {
         int currentPosX = myPosition.getColumn()+1;
         int currentPosY = myPosition.getRow()+1;
         while (currentPosX <= 8 && currentPosY <=8) {
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));
@@ -82,7 +122,15 @@ public class PieceMoveCalculator {
         int currentPosX = myPosition.getColumn()-1;
         int currentPosY = myPosition.getRow()+1;
         while (currentPosX >= 1 && currentPosY <=8) {
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));
@@ -98,7 +146,15 @@ public class PieceMoveCalculator {
         int currentPosX = myPosition.getColumn()-1;
         int currentPosY = myPosition.getRow()-1;
         while (currentPosX >= 1 && currentPosY >=1) {
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));
@@ -113,7 +169,15 @@ public class PieceMoveCalculator {
         int currentPosX = myPosition.getColumn()+1;
         int currentPosY = myPosition.getRow()-1;
         while (currentPosX <=8 && currentPosY >=1) {
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null||validMoves.size()>=max){
+            if(validMoves.size()>=max){
+                break;
+            }
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+                ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
+                ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
+                if(other.getTeamColor()!=thisP.getTeamColor()){
+                    validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));
+                }
                 break;
             }
             validMoves.add(new ChessMove(myPosition, new ChessPosition(currentPosY,currentPosX), promotionPiece));

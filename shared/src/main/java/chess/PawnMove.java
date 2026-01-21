@@ -6,14 +6,30 @@ import java.util.Collection;
 public class PawnMove extends PieceMoveCalculator{
     @Override
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition){
+        ChessGame.TeamColor ourColor = board.getPiece(myPosition).getTeamColor();
         Collection<ChessMove> pMoves = new ArrayList<>();
 
-        if(myPosition.getRow()==1||myPosition.getRow()==6){
-            pMoves.addAll(checkUp(board,myPosition, ChessPiece.PieceType.QUEEN,2));
+        if(ourColor == ChessGame.TeamColor.WHITE){
+            if(myPosition.getRow()==2){
+                pMoves.addAll(checkUp(board,myPosition, ChessPiece.PieceType.QUEEN,2,false));
+            }
+            else{
+                pMoves.addAll(checkUp(board,myPosition, ChessPiece.PieceType.QUEEN,1,false));
+            }
+            pMoves.addAll((checkULeft(board,myPosition, ChessPiece.PieceType.QUEEN,1)));
+            pMoves.addAll((checkURight(board,myPosition, ChessPiece.PieceType.QUEEN,1)));
         }
         else{
-            pMoves.addAll(checkUp(board,myPosition, ChessPiece.PieceType.QUEEN,1));
+            if(myPosition.getRow()==7){
+                pMoves.addAll(checkDown(board,myPosition, ChessPiece.PieceType.QUEEN,2,false));
+            }
+            else{
+                pMoves.addAll(checkDown(board,myPosition, ChessPiece.PieceType.QUEEN,1,false));
+            }
+            pMoves.addAll((checkLLeft(board,myPosition, ChessPiece.PieceType.QUEEN,1)));
+            pMoves.addAll((checkLRight(board,myPosition, ChessPiece.PieceType.QUEEN,1)));
         }
+
 
         return pMoves;
     }
