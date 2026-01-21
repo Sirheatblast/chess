@@ -70,10 +70,33 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-//        switch (pType){
-//            case PAWN:
-//        }
-        throw new RuntimeException("Not implemented");
+        Collection<ChessMove> moves = new ArrayList<>();
+        return switch (pType) {
+            case PAWN -> {
+                PawnMove pm = new PawnMove();
+                yield pm.pieceMoves(board, myPosition);
+            }
+            case ROOK -> {
+                RookMove rm = new RookMove();
+                yield rm.pieceMoves(board, myPosition);
+            }
+            case KNIGHT -> {
+                KnightMove km = new KnightMove();
+                yield km.pieceMoves(board, myPosition);
+            }
+            case BISHOP -> {
+                BishopMove bm = new BishopMove();
+                yield bm.pieceMoves(board, myPosition);
+            }
+            case QUEEN -> {
+                QueenMove qm = new QueenMove();
+                yield qm.pieceMoves(board, myPosition);
+            }
+            case KING -> {
+                KingMove kim = new KingMove();
+                yield kim.pieceMoves(board, myPosition);
+            }
+        };
     }
 
 }
