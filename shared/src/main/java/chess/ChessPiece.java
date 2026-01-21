@@ -54,6 +54,9 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+        switch (pType){
+
+        }
         throw new RuntimeException("Not implemented");
     }
 }
