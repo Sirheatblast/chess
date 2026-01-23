@@ -16,7 +16,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))==null){
+            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(canAttack&&other.getTeamColor()!=thisP.getTeamColor()){
@@ -37,7 +37,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))==null){
+            if(board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(currentPosY,myPosition.getColumn()));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(canAttack&&other.getTeamColor()!=thisP.getTeamColor()){
@@ -58,7 +58,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))==null){
+            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(other.getTeamColor()!=thisP.getTeamColor()){
@@ -79,7 +79,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))==null){
+            if(board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(myPosition.getRow(),currentPosX));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(other.getTeamColor()!=thisP.getTeamColor()){
@@ -101,7 +101,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(other.getTeamColor()!=thisP.getTeamColor()){
@@ -125,7 +125,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(other.getTeamColor()!=thisP.getTeamColor()){
@@ -149,7 +149,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(other.getTeamColor()!=thisP.getTeamColor()){
@@ -172,7 +172,7 @@ public class PieceMoveCalculator {
             if(validMoves.size()>=max){
                 break;
             }
-            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))==null){
+            if(board.getPiece(new ChessPosition(currentPosY,currentPosX))!=null){
                 ChessPiece other = board.getPiece(new ChessPosition(currentPosY,currentPosX));
                 ChessPiece thisP = board.getPiece(new ChessPosition(myPosition.getRow(),myPosition.getColumn()));
                 if(other.getTeamColor()!=thisP.getTeamColor()){

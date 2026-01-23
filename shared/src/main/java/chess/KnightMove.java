@@ -49,7 +49,7 @@ public class KnightMove extends PieceMoveCalculator{
     }
 
     private ChessMove calcPos(ChessGame.TeamColor ourColor,ChessBoard board, ChessPosition myPosition,int row,int col){
-        if(myPosition.getRow()+row<=8&&row>=1 && myPosition.getColumn()+col>=1&&col>=1){
+        if(myPosition.getRow()+row<=8&&myPosition.getRow()+row>=1 && myPosition.getColumn()+col>=1&&myPosition.getColumn()+col<=8){
             ChessPiece p = board.getPiece(new ChessPosition(myPosition.getRow()+row,myPosition.getColumn()+col));
             if(p!=null){
                 if(p.getTeamColor()!=ourColor){
