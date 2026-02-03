@@ -52,8 +52,6 @@ public class ChessGame {
     /**
      * Makes a move in a chess game
      *
-     * 
-     * 
      * @param move chess move to perform
      * @throws InvalidMoveException if move is invalid
      */

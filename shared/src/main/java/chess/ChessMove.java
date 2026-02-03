@@ -9,23 +9,28 @@ import java.util.Objects;
  * signature of the existing methods.
  */
 public class ChessMove {
+    private ChessPosition mStart;
+    private ChessPosition mEnd;
+    private ChessPiece.PieceType mProType;
 
-    ChessPosition sPos;
-    ChessPosition ePos;
-    ChessPiece.PieceType pPromotion;
-
-    public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
-                     ChessPiece.PieceType promotionPiece) {
-        sPos = startPosition;
-        ePos = endPosition;
-        pPromotion = promotionPiece;
+    public ChessMove(ChessPosition startPosition, ChessPosition endPosition, ChessPiece.PieceType promotionPiece) {
+        mStart = startPosition;
+        mEnd = endPosition;
+        mProType = promotionPiece;
     }
 
     /**
      * @return ChessPosition of starting location
      */
     public ChessPosition getStartPosition() {
-        return sPos;
+        return mStart;
+    }
+
+    /**
+     * @return ChessPosition of ending location
+     */
+    public ChessPosition getEndPosition() {
+        return mEnd;
     }
 
     @Override
@@ -34,19 +39,12 @@ public class ChessMove {
             return false;
         }
         ChessMove chessMove = (ChessMove) o;
-        return Objects.equals(sPos, chessMove.sPos) && Objects.equals(ePos, chessMove.ePos) && pPromotion == chessMove.pPromotion;
+        return Objects.equals(mStart, chessMove.mStart) && Objects.equals(mEnd, chessMove.mEnd) && mProType == chessMove.mProType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sPos, ePos, pPromotion);
-    }
-
-    /**
-     * @return ChessPosition of ending location
-     */
-    public ChessPosition getEndPosition() {
-        return ePos;
+        return Objects.hash(mStart, mEnd, mProType);
     }
 
     /**
@@ -56,6 +54,6 @@ public class ChessMove {
      * @return Type of piece to promote a pawn to, or null if no promotion
      */
     public ChessPiece.PieceType getPromotionPiece() {
-        return pPromotion;
+        return  mProType;
     }
 }

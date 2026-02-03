@@ -11,7 +11,6 @@ import java.util.Objects;
  */
 public class ChessBoard {
     private ChessPiece[][] board;
-
     public ChessBoard() {
         board = new ChessPiece[8][8];
     }
@@ -23,41 +22,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        board[position.getColumn()-1][position.getRow()-1] = piece;
-    }
-
-    /**
-     * Gets a chess piece on the chessboard
-     *
-     * @param position The position to get the piece from
-     * @return Either the piece at the position, or null if no piece is at that
-     * position
-     */
-    public ChessPiece getPiece(ChessPosition position) {
-        return board[position.getColumn()-1][position.getRow()-1];
-    }
-
-    /**
-     * Sets the board to the default starting board
-     * (How the game of chess normally starts)
-     */
-    public void resetBoard() {
-        board = new ChessPiece[8][8];
-        setCol(0, ChessPiece.PieceType.ROOK);
-        setCol(1, ChessPiece.PieceType.KNIGHT);
-        setCol(2, ChessPiece.PieceType.BISHOP);
-        setCol(3, ChessPiece.PieceType.QUEEN);
-        setCol(4, ChessPiece.PieceType.KING);
-        setCol(5, ChessPiece.PieceType.BISHOP);
-        setCol(6, ChessPiece.PieceType.KNIGHT);
-        setCol(7, ChessPiece.PieceType.ROOK);
-    }
-
-    private  void setCol(int idx, ChessPiece.PieceType pType){
-        board[idx][0] = new ChessPiece(ChessGame.TeamColor.WHITE, pType);
-        board[idx][1] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
-        board[idx][6] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
-        board[idx][7] = new ChessPiece(ChessGame.TeamColor.BLACK, pType);
+        board[position.getRow()-1][position.getColumn()-1] = piece;
     }
 
     @Override
@@ -72,5 +37,39 @@ public class ChessBoard {
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(board);
+    }
+
+    /**
+     * Gets a chess piece on the chessboard
+     *
+     * @param position The position to get the piece from
+     * @return Either the piece at the position, or null if no piece is at that
+     * position
+     */
+    public ChessPiece getPiece(ChessPosition position) {
+        return board[position.getRow()-1][position.getColumn()-1];
+    }
+
+    /**
+     * Sets the board to the default starting board
+     * (How the game of chess normally starts)
+     */
+    public void resetBoard() {
+        resetCol(0, ChessPiece.PieceType.ROOK);
+        resetCol(1, ChessPiece.PieceType.KNIGHT);
+        resetCol(2, ChessPiece.PieceType.BISHOP);
+        resetCol(3, ChessPiece.PieceType.QUEEN);
+        resetCol(4, ChessPiece.PieceType.KING);
+        resetCol(5, ChessPiece.PieceType.BISHOP);
+        resetCol(6, ChessPiece.PieceType.KNIGHT);
+        resetCol(7, ChessPiece.PieceType.ROOK);
+    }
+
+    void resetCol(int posX,ChessPiece.PieceType pType){
+        board[0][posX] = new ChessPiece(ChessGame.TeamColor.WHITE,pType);
+        board[1][posX] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+
+        board[6][posX] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        board[7][posX] = new ChessPiece(ChessGame.TeamColor.BLACK,pType);
     }
 }
