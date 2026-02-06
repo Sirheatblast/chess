@@ -10,7 +10,7 @@ import java.util.Objects;
  * signature of the existing methods.
  */
 public class ChessBoard {
-    private ChessPiece[][] board;
+    private final ChessPiece[][] board;
     public ChessBoard() {
         board = new ChessPiece[8][8];
     }
@@ -24,6 +24,8 @@ public class ChessBoard {
     public void addPiece(ChessPosition position, ChessPiece piece) {
         board[position.getRow()-1][position.getColumn()-1] = piece;
     }
+
+    public ChessPiece[][] get(){return board;}
 
     @Override
     public boolean equals(Object o) {
