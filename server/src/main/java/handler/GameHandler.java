@@ -1,13 +1,15 @@
 package handler;
 
+import model.GameData;
+
 public class GameHandler {
-    public void GetGameList() {
+    public void GetGameList(GameData gameData) {
 
     }
 
-    public void CreateGame() {
+    public void CreateGame(GameData gameData) {
     }
 
-    public void JoinGame() {
+    public void JoinGame(GameData gameData) {
     }
 }

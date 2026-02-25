@@ -9,15 +9,11 @@ public class GameData {
     private final String whiteUsername;
     private final String blackUsername;
     private final ChessGame game;
+    private final String name;
 
     @Override
     public String toString() {
-        return "GameData{" +
-                "gameID=" + gameID +
-                ", whiteUsername='" + whiteUsername + '\'' +
-                ", blackUsername='" + blackUsername + '\'' +
-                ", game=" + game +
-                '}';
+        return "GameData{" + "gameID=" + gameID + ", whiteUsername='" + whiteUsername + '\'' + ", blackUsername='" + blackUsername + '\'' + ", game=" + game + '}';
     }
 
     @Override
@@ -46,14 +42,19 @@ public class GameData {
         return blackUsername;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ChessGame getGame() {
         return game;
     }
 
-    public GameData(int gameID, String whiteUsername, String blackUsername, ChessGame game) {
+    public GameData(int gameID, String whiteUsername, String blackUsername, ChessGame game, String name) {
         this.gameID = gameID;
         this.whiteUsername = whiteUsername;
         this.blackUsername = blackUsername;
         this.game = game;
+        this.name = name;
     }
 }
