@@ -1,12 +1,13 @@
 package service;
 
 import dataaccess.DataAccessException;
+import dataaccess.LocalUserDAO;
 import dataaccess.UserAlreadyExistsException;
 import dataaccess.UserDAO;
 import model.UserData;
 
 public class UserService {
-    private UserDAO userDAO;
+    private UserDAO userDAO = new LocalUserDAO();
 
     public UserResult RegisterUser(UserData uData) throws DataAccessException {
         UserData userServerData = userDAO.GetUserData(uData.getUsername());

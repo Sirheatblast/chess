@@ -21,8 +21,7 @@ public class UserHandler {
         catch (DataAccessException e){
             result = new UserResult(cxt.statusCode(),e.getMessage(),"","");
         }
-
-
+        //note: next step would be to convert the result to json and send to server
 
     }
 
