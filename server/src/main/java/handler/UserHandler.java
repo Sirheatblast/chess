@@ -4,6 +4,7 @@ import model.UserData;
 
 public class UserHandler {
     public void RegisterUser(UserData userData) {
+
     }
 
     public void LoginUser(UserData userData) {
