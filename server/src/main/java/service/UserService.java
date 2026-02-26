@@ -3,9 +3,7 @@ package service;
 import dataaccess.DataAccessException;
 import dataaccess.UserAlreadyExistsException;
 import dataaccess.UserDAO;
-import model.AuthData;
 import model.UserData;
-import org.eclipse.jetty.server.Authentication;
 
 public class UserService {
     private UserDAO userDAO;
