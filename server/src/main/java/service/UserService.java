@@ -11,14 +11,17 @@ public class UserService {
     public UserResult RegisterUser(UserData uData) {
 
         try {
-            userDAO.GetUserData(uData.getUsername());
+            UserData uServerData = userDAO.GetUserData(uData.getUsername());
+            if(uServerData!=null){
+                throw new UserAlreadyExistsException("User Already Taken");
+            }
             userDAO.CreateUser(uData);
             String authToken = userDAO.CreateAuthToken(uData.getUsername());
-            return new UserResult(0, "", uData.getUsername(), authToken);
+            return new UserResult(200, "", uData.getUsername(), authToken);
         } catch (UserAlreadyExistsException e) {
-            return new UserResult(403, "User Already Taken", "", "");
+            return new UserResult(403, e.getMessage(), "", "");
         } catch (DataAccessException e) {
-            return new UserResult(0, "", "", "");//temp
+            return new UserResult(0, e.getMessage(), "", "");//temp
         }
     }
 }

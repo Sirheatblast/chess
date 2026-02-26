@@ -4,7 +4,7 @@ import model.AuthData;
 import model.UserData;
 
 public interface UserDAO {
-    public UserData GetUserData(String username) throws UserAlreadyExistsException;
+    public UserData GetUserData(String username);
 
     public void CreateUser(UserData userData) throws DataAccessException;
 
