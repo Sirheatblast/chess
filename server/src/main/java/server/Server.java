@@ -12,22 +12,19 @@ public class Server {
         javalin = Javalin.create(config -> config.staticFiles.add("web"));
 
         // Register your endpoints and exception handlers here.
-        javalin.post("/user", hdr -> {
-            UserData userData = hdr.bodyAsClass(UserData.class);
+        javalin.post("/user", cxt -> {
             UserHandler usrHdlr = new UserHandler();
-            usrHdlr.RegisterUser(userData);
+            usrHdlr.RegisterUser(cxt);
         });
 
-        javalin.post("/session", hdr -> {
-            UserData userData = hdr.bodyAsClass(UserData.class);
+        javalin.post("/session", cxt -> {
             UserHandler usrHdlr = new UserHandler();
-            usrHdlr.LoginUser(userData);
+            usrHdlr.LoginUser(cxt);
         });
 
-        javalin.delete("/session", hdr -> {
-            UserData userData = hdr.bodyAsClass(UserData.class);
+        javalin.delete("/session", cxt -> {
             UserHandler usrHdlr = new UserHandler();
-            usrHdlr.LogOutUser(userData);
+            usrHdlr.LogOutUser(cxt);
         });
     }
 
