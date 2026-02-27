@@ -1,9 +1,9 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataaccess.BadRequestException;
-import dataaccess.DataAccessException;
-import dataaccess.UserAlreadyExistsException;
+import dataaccess.serverException.BadRequestException;
+import dataaccess.serverException.DataAccessException;
+import dataaccess.serverException.UserAlreadyExistsException;
 import io.javalin.http.Context;
 import model.UserData;
 import service.UserResult;
