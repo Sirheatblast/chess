@@ -1,18 +1,18 @@
 package service;
 
-import dataaccess.DataAccessException;
-import dataaccess.LocalUserDAO;
-import dataaccess.UserAlreadyExistsException;
-import dataaccess.UserDAO;
+import dataaccess.*;
 import model.UserData;
 
 public class UserService {
-    private UserDAO userDAO = new LocalUserDAO();
+    private final UserDAO userDAO = new LocalUserDAO();
 
     public UserResult RegisterUser(UserData uData) throws DataAccessException {
+        if(uData.getUsername().isEmpty() ||uData.getPassword().isEmpty()||uData.getEmail().isEmpty()){
+            throw new BadRequestException("Error: bad request");
+        }
         UserData userServerData = userDAO.GetUserData(uData.getUsername());
         if (userServerData != null) {
-            throw new UserAlreadyExistsException("User Already Taken");
+            throw new UserAlreadyExistsException("Error: already taken");
         }
         userDAO.CreateUser(uData);
         String authToken = userDAO.CreateAuthToken(uData.getUsername());

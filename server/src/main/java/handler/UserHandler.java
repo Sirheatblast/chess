@@ -1,5 +1,6 @@
 package handler;
 
+import dataaccess.BadRequestException;
 import dataaccess.DataAccessException;
 import dataaccess.UserAlreadyExistsException;
 import io.javalin.http.Context;
@@ -18,8 +19,11 @@ public class UserHandler {
         catch (UserAlreadyExistsException e){
             result = new UserResult(403,e.getMessage(),"","");
         }
+        catch (BadRequestException e){
+            result = new UserResult(400,e.getMessage(),"","");
+        }
         catch (DataAccessException e){
-            result = new UserResult(cxt.statusCode(),e.getMessage(),"","");
+            result = new UserResult(500,e.getMessage(),"","");
         }
         //note: next step would be to convert the result to json and send to server
 
