@@ -1,5 +1,6 @@
 package handler;
 
+import com.google.gson.Gson;
 import dataaccess.BadRequestException;
 import dataaccess.DataAccessException;
 import dataaccess.UserAlreadyExistsException;
@@ -25,8 +26,10 @@ public class UserHandler {
         catch (DataAccessException e){
             result = new UserResult(500,e.getMessage(),"","");
         }
-        //note: next step would be to convert the result to json and send to server
 
+        Gson gson = new Gson();
+        String resultJson = gson.toJson(result);
+        cxt.result(resultJson);
     }
 
     public void LoginUser(Context cxt) {
