@@ -12,7 +12,7 @@ public class UserService {
     private final UserDAO userDAO = new LocalUserDAO();
     private final AuthDAO authDAO = new LocalAuthDAO();
 
-    public UserResult RegisterUser(UserData uData) throws DataAccessException {
+    public UserResult RegisterUser(UserData uData) throws Exception {
         UserData userServerData = userDAO.GetUserData(uData.getUsername());
         if (userServerData != null) {
             throw new UserAlreadyExistsException("Error: already taken");

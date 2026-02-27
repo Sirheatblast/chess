@@ -23,7 +23,7 @@ public class UserHandler {
         catch (BadRequestException e){
             result = new UserResult(400,e.getMessage(),"","");
         }
-        catch (DataAccessException e){
+        catch (Exception e){
             result = new UserResult(500,e.getMessage(),"","");
         }
 
