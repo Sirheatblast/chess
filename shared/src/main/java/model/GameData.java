@@ -6,9 +6,18 @@ import java.util.Objects;
 
 public class GameData {
     private final int gameID;
-    private final String whiteUsername;
-    private final String blackUsername;
+    private String whiteUsername;
+    private String blackUsername;
     private final ChessGame game;
+
+    public void setWhiteUsername(String whiteUsername) {
+        this.whiteUsername = whiteUsername;
+    }
+
+    public void setBlackUsername(String blackUsername) {
+        this.blackUsername = blackUsername;
+    }
+
     private final String name;
 
     @Override

@@ -17,6 +17,9 @@ public class LocalAuthDAO implements AuthDAO {
         if (authToken.isEmpty()) {
             throw new UserUnauthorizedException("Error: unauthorized");
         }
+        if(internalAuthTokenData.get(authToken)==null){
+            throw new BadRequestException("Error: bad request");
+        }
         return internalAuthTokenData.get(authToken);
     }
 
