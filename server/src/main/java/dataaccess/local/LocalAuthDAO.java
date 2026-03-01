@@ -2,7 +2,6 @@ package dataaccess.local;
 
 import dataaccess.dataAccessObject.AuthDAO;
 import dataaccess.serverException.BadRequestException;
-import dataaccess.serverException.DataAccessException;
 import model.AuthData;
 
 import java.util.HashMap;
@@ -10,7 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class LocalAuthDAO implements AuthDAO {
-    private final Map<String, String> internalAuthTokenData = new HashMap<>();
+    private static final Map<String, String> internalAuthTokenData = new HashMap<>();
 
     @Override
     public String GetAuthKey(String username) throws Exception {
