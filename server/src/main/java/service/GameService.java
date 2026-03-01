@@ -43,6 +43,6 @@ public class GameService {
             }
             gameData.setBlackUsername(username);
         }
-        return new GameResult(200, "", gameReq.getGameID());
+        return new GameResult(200, "", null);
     }
 }

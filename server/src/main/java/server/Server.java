@@ -30,14 +30,17 @@ public class Server {
 
         javalin.get("/game", cxt -> {
             GameHandler gameHdlr = new GameHandler();
+            gameHdlr.GetGameList(cxt);
         });
 
         javalin.post("/game", cxt -> {
             GameHandler gameHdlr = new GameHandler();
+            gameHdlr.CreateGame(cxt);
         });
 
         javalin.put("/game", cxt -> {
             GameHandler gameHdlr = new GameHandler();
+            gameHdlr.JoinGame(cxt);
         });
     }
 
