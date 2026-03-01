@@ -7,9 +7,7 @@ import dataaccess.local.LocalUserDAO;
 import dataaccess.serverException.BadRequestException;
 import dataaccess.serverException.UserAlreadyExistsException;
 import dataaccess.serverException.UserUnauthorizedException;
-import model.AuthData;
 import model.UserData;
-import org.eclipse.jetty.server.Authentication;
 
 public class UserService {
     private final UserDAO userDAO = new LocalUserDAO();
@@ -38,12 +36,9 @@ public class UserService {
         return new UserResult(200, "", uData.getUsername(), authToken);
     }
 
-    public UserResult LogoutUser(AuthData aData) throws Exception {
-        String serverAuth = authDAO.GetAuthKey(aData.getUsername());
-        if (!aData.getAuthToken().equals(serverAuth)) {
-            throw new UserUnauthorizedException("Error: unauthorized");
-        }
-
+    public UserResult LogoutUser(String authToken) throws Exception {
+        String username = authDAO.GetAuthUsername(authToken);
+        authDAO.DeleteAuthToken(authToken);
         return new UserResult(200, "", "", "");
     }
 

@@ -63,9 +63,13 @@ public class UserHandler {
         Gson gson = new Gson();
 
         try{
-            AuthData aData = gson.fromJson(cxt.body(), AuthData.class);
+            String authToken = cxt.header("authorization");
+            if(authToken==null){
+                throw new UserUnauthorizedException("Error: unauthorized");
+            }
+
             UserService uService = new UserService();
-            result = uService.LogoutUser(aData);
+            result = uService.LogoutUser(authToken);
         }
         catch (UserUnauthorizedException e){
             result = new UserResult(401,e.getMessage(),"","");

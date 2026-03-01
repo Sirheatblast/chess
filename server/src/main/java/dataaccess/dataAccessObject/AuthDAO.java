@@ -4,9 +4,9 @@ import dataaccess.serverException.DataAccessException;
 import model.AuthData;
 
 public interface AuthDAO {
-    public String GetAuthKey(String username) throws Exception;
+    public String GetAuthUsername(String authToken) throws Exception;
 
     public String CreateAuthToken(String username) throws Exception;
 
-    public void DeleteAuthToken(AuthData authData) throws Exception;
+    public void DeleteAuthToken(String authToken) throws Exception;
 }

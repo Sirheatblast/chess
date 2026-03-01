@@ -2,6 +2,7 @@ package dataaccess.local;
 
 import dataaccess.dataAccessObject.AuthDAO;
 import dataaccess.serverException.BadRequestException;
+import dataaccess.serverException.UserUnauthorizedException;
 import model.AuthData;
 
 import java.util.HashMap;
@@ -12,11 +13,11 @@ public class LocalAuthDAO implements AuthDAO {
     private static final Map<String, String> internalAuthTokenData = new HashMap<>();
 
     @Override
-    public String GetAuthKey(String username) throws Exception {
-        if (username.isEmpty()) {
-            throw new BadRequestException("Error: bad request");
+    public String GetAuthUsername(String authToken) throws Exception {
+        if (authToken.isEmpty()) {
+            throw new UserUnauthorizedException("Error: unauthorized");
         }
-        return internalAuthTokenData.get(username);
+        return internalAuthTokenData.get(authToken);
     }
 
     @Override
@@ -26,16 +27,12 @@ public class LocalAuthDAO implements AuthDAO {
         }
 
         String nAuthToken = UUID.randomUUID().toString();
-        internalAuthTokenData.put(username, nAuthToken);
+        internalAuthTokenData.put(nAuthToken,username);
         return nAuthToken;
     }
 
     @Override
-    public void DeleteAuthToken(AuthData authData) throws Exception {
-        if (authData.getUsername().isEmpty()) {
-            throw new BadRequestException("Error: bad request");
-        }
-
-        internalAuthTokenData.remove(authData.getUsername());
+    public void DeleteAuthToken(String authToken) throws Exception {
+        internalAuthTokenData.remove(authToken);
     }
 }
