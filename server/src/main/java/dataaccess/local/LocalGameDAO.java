@@ -4,7 +4,7 @@ import chess.ChessGame;
 import dataaccess.dataAccessObject.GameDAO;
 import handler.GameRequest;
 import model.GameData;
-import service.result.GameResult;
+import service.result.GameMetaData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class LocalGameDAO implements GameDAO {
     @Override
     public int CreateGame(GameRequest gameReq) throws Exception {
         int gameID = nextIndex;
-        gameDatamap.put(gameID,new GameData(gameID,"","",new ChessGame(), gameReq.getGameName()));
+        gameDatamap.put(gameID, new GameData(gameID, "", "", new ChessGame(), gameReq.getGameName()));
         nextIndex++;
         return gameID;
     }
@@ -29,8 +29,13 @@ public class LocalGameDAO implements GameDAO {
     }
 
     @Override
-    public List<GameData> ListGames() throws Exception {
-        return new ArrayList<GameData>(gameDatamap.values());
+    public List<GameMetaData> ListGames() throws Exception {
+        List<GameMetaData> games = new ArrayList<>();
+        for (GameData gameData : gameDatamap.values()) {
+            games.add(new GameMetaData(gameData.getGameID(), gameData.getName(),
+                    gameData.getWhiteUsername(), gameData.getBlackUsername()));
+        }
+        return games;
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.Objects;
 public class GameResult {
     private final int status;
     private final String message;
-    private final int gameID;
+    private final Integer gameID;
 
     @Override
     public String
@@ -23,7 +23,7 @@ public class GameResult {
             return false;
         }
         GameResult that = (GameResult) o;
-        return status == that.status && gameID == that.gameID && Objects.equals(message, that.message);
+        return status == that.status && Objects.equals(gameID, that.gameID) && Objects.equals(message, that.message);
     }
 
     @Override
