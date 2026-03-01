@@ -1,4 +1,4 @@
-package service;
+package service.result;
 
 import java.util.Objects;
 
@@ -43,7 +43,7 @@ public class GameResult {
         return gameID;
     }
 
-    public GameResult(int status, String message, int gameID) {
+    public GameResult(int status, String message, Integer gameID) {
         this.status = status;
         this.message = message;
         this.gameID = gameID;

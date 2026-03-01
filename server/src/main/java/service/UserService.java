@@ -8,6 +8,7 @@ import dataaccess.serverException.BadRequestException;
 import dataaccess.serverException.UserAlreadyExistsException;
 import dataaccess.serverException.UserUnauthorizedException;
 import model.UserData;
+import service.result.UserResult;
 
 public class UserService {
     private final UserDAO userDAO = new LocalUserDAO();

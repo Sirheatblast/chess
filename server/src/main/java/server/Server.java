@@ -1,5 +1,6 @@
 package server;
 
+import handler.GameHandler;
 import handler.UserHandler;
 import io.javalin.*;
 import model.UserData;
@@ -25,6 +26,18 @@ public class Server {
         javalin.delete("/session", cxt -> {
             UserHandler usrHdlr = new UserHandler();
             usrHdlr.LogOutUser(cxt);
+        });
+
+        javalin.get("/game", cxt -> {
+            GameHandler gameHdlr = new GameHandler();
+        });
+
+        javalin.post("/game", cxt -> {
+            GameHandler gameHdlr = new GameHandler();
+        });
+
+        javalin.put("/game", cxt -> {
+            GameHandler gameHdlr = new GameHandler();
         });
     }
 

@@ -2,13 +2,11 @@ package handler;
 
 import com.google.gson.Gson;
 import dataaccess.serverException.BadRequestException;
-import dataaccess.serverException.DataAccessException;
 import dataaccess.serverException.UserAlreadyExistsException;
 import dataaccess.serverException.UserUnauthorizedException;
 import io.javalin.http.Context;
-import model.AuthData;
 import model.UserData;
-import service.UserResult;
+import service.result.UserResult;
 import service.UserService;
 
 public class UserHandler {
