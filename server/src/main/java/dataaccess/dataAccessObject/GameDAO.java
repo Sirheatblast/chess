@@ -1,15 +1,17 @@
 package dataaccess.dataAccessObject;
 
+import handler.GameRequest;
 import model.GameData;
+import service.result.GameResult;
 
 import java.util.List;
 
 public interface GameDAO {
-    void CreateGame(GameData gameData);
+    int CreateGame(GameRequest gameReq) throws Exception;
 
-    GameData GetGame(int gameID);
+    GameData GetGame(int gameID) throws Exception;
 
-    List<GameData> ListGames();
+    List<GameData> ListGames() throws Exception;
 
-    void UpdateGame(int gameID,GameData gameData);
+    void UpdateGame(int gameID, GameRequest gameReq) throws Exception;
 }
