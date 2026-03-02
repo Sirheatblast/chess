@@ -14,11 +14,8 @@ public class LocalAuthDAO implements AuthDAO {
 
     @Override
     public String GetAuthUsername(String authToken) throws Exception {
-        if (authToken.isEmpty()) {
+        if (internalAuthTokenData.get(authToken)==null) {
             throw new UserUnauthorizedException("Error: unauthorized");
-        }
-        if(internalAuthTokenData.get(authToken)==null){
-            throw new BadRequestException("Error: bad request");
         }
         return internalAuthTokenData.get(authToken);
     }
@@ -36,6 +33,9 @@ public class LocalAuthDAO implements AuthDAO {
 
     @Override
     public void DeleteAuthToken(String authToken) throws Exception {
+        if(!internalAuthTokenData.containsKey(authToken)){
+            throw new UserUnauthorizedException("Error: unauthorized");
+        }
         internalAuthTokenData.remove(authToken);
     }
 

@@ -20,17 +20,18 @@ public class UserHandler {
             result = uService.RegisterUser(uData);
         }
         catch (UserAlreadyExistsException e){
-            result = new UserResult(403,e.getMessage(),"","");
+            result = new UserResult(403,e.getMessage(),null,null);
         }
         catch (BadRequestException e){
-            result = new UserResult(400,e.getMessage(),"","");
+            result = new UserResult(400,e.getMessage(),null,null);
         }
         catch (Exception e){
-            result = new UserResult(500,e.getMessage(),"","");
+            result = new UserResult(500,e.getMessage(),null,null);
         }
 
         String resultJson = gson.toJson(result);
         cxt.result(resultJson);
+        cxt.status(result.getStatus());
     }
 
     public void LoginUser(Context cxt) {
@@ -43,17 +44,18 @@ public class UserHandler {
             result = uService.LoginUser(uData);
         }
         catch (UserUnauthorizedException e){
-            result = new UserResult(401,e.getMessage(),"","");
+            result = new UserResult(401,e.getMessage(),null,null);
         }
         catch (BadRequestException e){
-            result = new UserResult(400,e.getMessage(),"","");
+            result = new UserResult(400,e.getMessage(),null,null);
         }
         catch (Exception e){
-            result = new UserResult(500,e.getMessage(),"","");
+            result = new UserResult(500,e.getMessage(),null,null);
         }
 
         String resultJson = gson.toJson(result);
         cxt.result(resultJson);
+        cxt.status(result.getStatus());
     }
 
     public void LogOutUser(Context cxt) {
@@ -70,13 +72,14 @@ public class UserHandler {
             result = uService.LogoutUser(authToken);
         }
         catch (UserUnauthorizedException e){
-            result = new UserResult(401,e.getMessage(),"","");
+            result = new UserResult(401,e.getMessage(),null,null);
         }
         catch (Exception e){
-            result = new UserResult(500,e.getMessage(),"","");
+            result = new UserResult(500,e.getMessage(),null,null);
         }
 
         String resultJson = gson.toJson(result);
         cxt.result(resultJson);
+        cxt.status(result.getStatus());
     }
 }

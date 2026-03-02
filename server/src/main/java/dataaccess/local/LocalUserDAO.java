@@ -12,7 +12,7 @@ public class LocalUserDAO implements UserDAO {
 
     @Override
     public UserData GetUserData(String username) throws Exception {
-        if (username.isEmpty()) {
+        if (username==null||username.isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
         return internalUserData.get(username);
