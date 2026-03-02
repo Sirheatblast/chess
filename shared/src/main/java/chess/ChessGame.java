@@ -92,7 +92,8 @@ public class ChessGame {
         if (move.getPromotionPiece() == null) {
             board.get()[move.getEndPosition().getRow() - 1][move.getEndPosition().getColumn() - 1] = piece;
         } else {
-            board.get()[move.getEndPosition().getRow() - 1][move.getEndPosition().getColumn() - 1] = new ChessPiece(piece.getTeamColor(), move.getPromotionPiece());
+            board.get()[move.getEndPosition().getRow() - 1][move.getEndPosition().getColumn() - 1]
+                    = new ChessPiece(piece.getTeamColor(), move.getPromotionPiece());
         }
     }
 
@@ -120,20 +121,25 @@ public class ChessGame {
             for (int x = 0; x < 8; x++) {
                 ChessPiece piece = board.get()[y][x];
                 ChessPosition currentPos = new ChessPosition(y + 1, x + 1);
-                if (piece != null) {
-                    if (piece.getTeamColor() == playingTeam) {
-                        if (piece.getPieceType() == ChessPiece.PieceType.KING && kingPos == null) {
-                            kingPos = currentPos;
-                        }
-                    } else {
-                        for (var move : piece.pieceMoves(board, currentPos)) {
-                            pPoses.add(move.getEndPosition());
-                        }
-                    }
-                }
+                kingPos = processPiece(kingPos, playingTeam, piece, currentPos, pPoses);
             }
         }
         return pPoses.contains(kingPos);
+    }
+
+    private ChessPosition processPiece(ChessPosition kingPos, TeamColor playingTeam, ChessPiece piece, ChessPosition currentPos, Collection<ChessPosition> pPoses) {
+        if (piece != null) {
+            if (piece.getTeamColor() == playingTeam) {
+                if (piece.getPieceType() == ChessPiece.PieceType.KING && kingPos == null) {
+                    kingPos = currentPos;
+                }
+            } else {
+                for (var move : piece.pieceMoves(board, currentPos)) {
+                    pPoses.add(move.getEndPosition());
+                }
+            }
+        }
+        return kingPos;
     }
 
     /**

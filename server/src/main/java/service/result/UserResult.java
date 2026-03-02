@@ -31,7 +31,8 @@ public class UserResult {
             return false;
         }
         UserResult that = (UserResult) o;
-        return status == that.status && Objects.equals(message, that.message) && Objects.equals(username, that.username) && Objects.equals(authToken, that.authToken);
+        return status == that.status && Objects.equals(message, that.message) &&
+                Objects.equals(username, that.username) && Objects.equals(authToken, that.authToken);
     }
 
     @Override

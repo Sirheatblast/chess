@@ -23,7 +23,8 @@ public class GameMetaData {
             return false;
         }
         GameMetaData that = (GameMetaData) o;
-        return gameID == that.gameID && Objects.equals(gameName, that.gameName) && Objects.equals(whiteUsername, that.whiteUsername) && Objects.equals(blackUsername, that.blackUsername);
+        return gameID == that.gameID && Objects.equals(gameName, that.gameName) &&
+                Objects.equals(whiteUsername, that.whiteUsername) && Objects.equals(blackUsername, that.blackUsername);
     }
 
     @Override

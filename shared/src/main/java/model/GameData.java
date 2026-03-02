@@ -22,7 +22,8 @@ public class GameData {
 
     @Override
     public String toString() {
-        return "GameData{" + "gameID=" + gameID + ", whiteUsername='" + whiteUsername + '\'' + ", blackUsername='" + blackUsername + '\'' + ", game=" + game + '}';
+        return "GameData{" + "gameID=" + gameID + ", whiteUsername='" + whiteUsername + '\'' +
+                ", blackUsername='" + blackUsername + '\'' + ", game=" + game + '}';
     }
 
     @Override
@@ -31,7 +32,8 @@ public class GameData {
             return false;
         }
         GameData gameData = (GameData) o;
-        return gameID == gameData.gameID && Objects.equals(whiteUsername, gameData.whiteUsername) && Objects.equals(blackUsername, gameData.blackUsername) && Objects.equals(game, gameData.game);
+        return gameID == gameData.gameID && Objects.equals(whiteUsername, gameData.whiteUsername) &&
+                Objects.equals(blackUsername, gameData.blackUsername) && Objects.equals(game, gameData.game);
     }
 
     @Override
