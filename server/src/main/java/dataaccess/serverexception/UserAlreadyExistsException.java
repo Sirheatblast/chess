@@ -1,4 +1,4 @@
-package dataaccess.serverException;
+package dataaccess.serverexception;
 
 public class UserAlreadyExistsException extends Exception {
     public UserAlreadyExistsException(String message) {

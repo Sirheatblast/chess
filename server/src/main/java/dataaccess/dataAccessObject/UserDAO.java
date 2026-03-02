@@ -1,6 +1,5 @@
 package dataaccess.dataAccessObject;
 
-import dataaccess.serverException.DataAccessException;
 import model.UserData;
 
 public interface UserDAO {

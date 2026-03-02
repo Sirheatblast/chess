@@ -1,8 +1,5 @@
 package dataaccess.dataAccessObject;
 
-import dataaccess.serverException.DataAccessException;
-import model.AuthData;
-
 public interface AuthDAO {
     public String GetAuthUsername(String authToken) throws Exception;
 

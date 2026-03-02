@@ -1,9 +1,8 @@
 package dataaccess.local;
 
 import dataaccess.dataAccessObject.AuthDAO;
-import dataaccess.serverException.BadRequestException;
-import dataaccess.serverException.UserUnauthorizedException;
-import model.AuthData;
+import dataaccess.serverexception.BadRequestException;
+import dataaccess.serverexception.UserUnauthorizedException;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package dataaccess.local;
 
-import dataaccess.serverException.BadRequestException;
+import dataaccess.serverexception.BadRequestException;
 import dataaccess.dataAccessObject.UserDAO;
 import model.UserData;
 

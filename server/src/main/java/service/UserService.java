@@ -4,9 +4,9 @@ import dataaccess.dataAccessObject.AuthDAO;
 import dataaccess.dataAccessObject.UserDAO;
 import dataaccess.local.LocalAuthDAO;
 import dataaccess.local.LocalUserDAO;
-import dataaccess.serverException.BadRequestException;
-import dataaccess.serverException.UserAlreadyExistsException;
-import dataaccess.serverException.UserUnauthorizedException;
+import dataaccess.serverexception.BadRequestException;
+import dataaccess.serverexception.UserAlreadyExistsException;
+import dataaccess.serverexception.UserUnauthorizedException;
 import model.UserData;
 import service.result.UserResult;
 
