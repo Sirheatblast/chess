@@ -1,6 +1,6 @@
 package dataaccess.local;
 
-import dataaccess.dataAccessObject.AuthDAO;
+import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.UserUnauthorizedException;
 

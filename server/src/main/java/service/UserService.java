@@ -1,7 +1,7 @@
 package service;
 
-import dataaccess.dataAccessObject.AuthDAO;
-import dataaccess.dataAccessObject.UserDAO;
+import dataaccess.dataaccessobject.AuthDAO;
+import dataaccess.dataaccessobject.UserDAO;
 import dataaccess.local.LocalAuthDAO;
 import dataaccess.local.LocalUserDAO;
 import dataaccess.serverexception.BadRequestException;

@@ -1,10 +1,8 @@
-package dataaccess.dataAccessObject;
+package dataaccess.dataaccessobject;
 
 import handler.GameRequest;
 import model.GameData;
-import service.result.GameListResult;
 import service.result.GameMetaData;
-import service.result.GameResult;
 
 import java.util.List;
 

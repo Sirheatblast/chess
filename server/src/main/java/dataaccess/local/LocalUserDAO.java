@@ -1,7 +1,7 @@
 package dataaccess.local;
 
 import dataaccess.serverexception.BadRequestException;
-import dataaccess.dataAccessObject.UserDAO;
+import dataaccess.dataaccessobject.UserDAO;
 import model.UserData;
 
 import java.util.HashMap;

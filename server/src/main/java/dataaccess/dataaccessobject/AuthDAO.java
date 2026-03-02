@@ -1,4 +1,4 @@
-package dataaccess.dataAccessObject;
+package dataaccess.dataaccessobject;
 
 public interface AuthDAO {
     public String GetAuthUsername(String authToken) throws Exception;
