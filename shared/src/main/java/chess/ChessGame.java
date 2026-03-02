@@ -127,7 +127,8 @@ public class ChessGame {
         return pPoses.contains(kingPos);
     }
 
-    private ChessPosition processPiece(ChessPosition kingPos, TeamColor playingTeam, ChessPiece piece, ChessPosition currentPos, Collection<ChessPosition> pPoses) {
+    private ChessPosition processPiece(ChessPosition kingPos, TeamColor playingTeam, ChessPiece piece,
+                                       ChessPosition currentPos, Collection<ChessPosition> pPoses) {
         if (piece != null) {
             if (piece.getTeamColor() == playingTeam) {
                 if (piece.getPieceType() == ChessPiece.PieceType.KING && kingPos == null) {
