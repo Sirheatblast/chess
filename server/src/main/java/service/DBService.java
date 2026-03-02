@@ -11,7 +11,7 @@ public class DBService {
     AuthDAO aDAO = new LocalAuthDAO();
     GameDAO gDAO = new LocalGameDAO();
     UserDAO uDAO = new LocalUserDAO();
-    public void ClearDB() throws Exception {
+    public void clearDB() throws Exception {
         aDAO.flush();
         gDAO.flush();
         uDAO.flush();

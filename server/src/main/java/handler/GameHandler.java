@@ -10,7 +10,7 @@ import service.result.GameListResult;
 import service.result.GameResult;
 
 public class GameHandler {
-    public void GetGameList(Context cxt) {
+    public void getGameList(Context cxt) {
         GameListResult result;
         Gson gson = new Gson();
         try {
@@ -19,7 +19,7 @@ public class GameHandler {
                 throw new UserUnauthorizedException("Error: unauthorized");
             }
             GameService gameService = new GameService();
-            result = gameService.GetGameList(authToken);
+            result = gameService.getGameList(authToken);
 
         } catch (UserUnauthorizedException e) {
             result = new GameListResult(401, e.getMessage(), null);
@@ -32,7 +32,7 @@ public class GameHandler {
         cxt.status(result.getStatus());
     }
 
-    public void CreateGame(Context cxt) {
+    public void createGame(Context cxt) {
         GameResult result;
         Gson gson = new Gson();
         try {
@@ -43,7 +43,7 @@ public class GameHandler {
             GameRequest gameReq = gson.fromJson(cxt.body(), GameRequest.class);
 
             GameService gameService = new GameService();
-            result = gameService.CreateGame(authToken, gameReq);
+            result = gameService.createGame(authToken, gameReq);
 
         } catch (BadRequestException e) {
             result = new GameResult(400, e.getMessage(), null);
@@ -58,7 +58,7 @@ public class GameHandler {
         cxt.status(result.getStatus());
     }
 
-    public void JoinGame(Context cxt) {
+    public void joinGame(Context cxt) {
         GameResult result;
         Gson gson = new Gson();
         try {
@@ -69,7 +69,7 @@ public class GameHandler {
             GameRequest gameReq = gson.fromJson(cxt.body(), GameRequest.class);
 
             GameService gameService = new GameService();
-            result = gameService.JoinGame(authToken, gameReq);
+            result = gameService.joinGame(authToken, gameReq);
 
         } catch (BadRequestException e) {
             result = new GameResult(400, e.getMessage(), null);

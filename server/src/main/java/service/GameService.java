@@ -16,12 +16,12 @@ public class GameService {
     private final GameDAO gameDAO = new LocalGameDAO();
     private final AuthDAO authDAO = new LocalAuthDAO();
 
-    public GameListResult GetGameList(String authToken) throws Exception {
+    public GameListResult getGameList(String authToken) throws Exception {
         authDAO.getAuthUsername(authToken);
         return new GameListResult(200, "", gameDAO.listGames());
     }
 
-    public GameResult CreateGame(String authToken, GameRequest gameReq) throws Exception {
+    public GameResult createGame(String authToken, GameRequest gameReq) throws Exception {
         authDAO.getAuthUsername(authToken);
         if(gameReq.getGameName()==null){
             throw new BadRequestException("Error: bad request");
@@ -30,7 +30,7 @@ public class GameService {
         return new GameResult(200, "", gameDAO.createGame(gameReq));
     }
 
-    public GameResult JoinGame(String authToken, GameRequest gameReq) throws Exception {
+    public GameResult joinGame(String authToken, GameRequest gameReq) throws Exception {
         String username = authDAO.getAuthUsername(authToken);
         GameData gameData = gameDAO.getGame(gameReq.getGameID());
         if (gameData == null || gameReq.getPlayerColor()==null ||

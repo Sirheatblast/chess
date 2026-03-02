@@ -14,7 +14,7 @@ public class UserService {
     private final UserDAO userDAO = new LocalUserDAO();
     private final AuthDAO authDAO = new LocalAuthDAO();
 
-    public UserResult RegisterUser(UserData uData) throws Exception {
+    public UserResult registerUser(UserData uData) throws Exception {
         if(uData.getUsername()==null||uData.getPassword()==null||uData.getEmail()==null){
             throw new BadRequestException("Error: bad request");
         }
@@ -28,7 +28,7 @@ public class UserService {
         return new UserResult(200, "", uData.getUsername(), authToken);
     }
 
-    public UserResult LoginUser(UserData uData) throws Exception {
+    public UserResult loginUser(UserData uData) throws Exception {
         if (uData.getUsername()==null||uData.getUsername().isEmpty()||
                 uData.getPassword()==null||uData.getPassword().isEmpty()) {
             throw new BadRequestException("Error: bad request");
@@ -43,7 +43,7 @@ public class UserService {
         return new UserResult(200, "", uData.getUsername(), authToken);
     }
 
-    public UserResult LogoutUser(String authToken) throws Exception {
+    public UserResult logoutUser(String authToken) throws Exception {
         if(authToken==null){
             throw new UserUnauthorizedException("Error: unauthorized");
         }

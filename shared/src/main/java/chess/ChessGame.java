@@ -86,18 +86,18 @@ public class ChessGame {
             ChessMove originalMove = new ChessMove(move.getEndPosition(),move.getStartPosition(),null);
             ChessPiece originalEndP = board.getPiece(move.getEndPosition());
 
-            ProcessMove(piece, move);
+            processMove(piece, move);
             if(!isInCheck(piece.getTeamColor())){
                 pMoves.add(move);
             }
-            ProcessMove(piece,originalMove);
+            processMove(piece,originalMove);
             board.get()[move.getEndPosition().getRow()-1][move.getEndPosition().getColumn()-1] = originalEndP;
         }
 
         return pMoves;
     }
 
-    private void ProcessMove(ChessPiece piece, ChessMove move) {
+    private void processMove(ChessPiece piece, ChessMove move) {
         board.get()[move.getStartPosition().getRow()-1][move.getStartPosition().getColumn()-1] = null;
         if(move.getPromotionPiece()==null){
             board.get()[move.getEndPosition().getRow()-1][move.getEndPosition().getColumn()-1] = piece;
@@ -117,7 +117,7 @@ public class ChessGame {
         ChessPiece piece = board.getPiece(move.getStartPosition());
 
         if(!isInCheck(playingTeam)&&piece!=null&&validMoves(move.getStartPosition()).contains(move)&&piece.getTeamColor()==playingTeam){
-            ProcessMove(piece, move);
+            processMove(piece, move);
             playingTeam = (playingTeam==TeamColor.WHITE)?TeamColor.BLACK:TeamColor.WHITE;
         }
         else{
@@ -126,10 +126,10 @@ public class ChessGame {
     }
 
     private boolean checkKingPos(ChessPosition kingPos) {
-        return ProcessCheck(kingPos, playingTeam);
+        return processCheck(kingPos, playingTeam);
     }
 
-    private boolean ProcessCheck(ChessPosition kingPos, TeamColor playingTeam) {
+    private boolean processCheck(ChessPosition kingPos, TeamColor playingTeam) {
         Collection<ChessPosition> pPoses = new ArrayList<>();
 
         for(int y=0;y<8;y++){
@@ -160,7 +160,7 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-        return ProcessCheck(null, teamColor);
+        return processCheck(null, teamColor);
     }
 
     /**

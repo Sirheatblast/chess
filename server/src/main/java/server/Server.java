@@ -15,37 +15,37 @@ public class Server {
         // Register your endpoints and exception handlers here.
         javalin.post("/user", cxt -> {
             UserHandler usrHdlr = new UserHandler();
-            usrHdlr.RegisterUser(cxt);
+            usrHdlr.registerUser(cxt);
         });
 
         javalin.post("/session", cxt -> {
             UserHandler usrHdlr = new UserHandler();
-            usrHdlr.LoginUser(cxt);
+            usrHdlr.loginUser(cxt);
         });
 
         javalin.delete("/session", cxt -> {
             UserHandler usrHdlr = new UserHandler();
-            usrHdlr.LogOutUser(cxt);
+            usrHdlr.logoutUser(cxt);
         });
 
         javalin.get("/game", cxt -> {
             GameHandler gameHdlr = new GameHandler();
-            gameHdlr.GetGameList(cxt);
+            gameHdlr.getGameList(cxt);
         });
 
         javalin.post("/game", cxt -> {
             GameHandler gameHdlr = new GameHandler();
-            gameHdlr.CreateGame(cxt);
+            gameHdlr.createGame(cxt);
         });
 
         javalin.put("/game", cxt -> {
             GameHandler gameHdlr = new GameHandler();
-            gameHdlr.JoinGame(cxt);
+            gameHdlr.joinGame(cxt);
         });
 
         javalin.delete("/db", cxt -> {
             DBHandler dbHdlr = new DBHandler();
-            dbHdlr.ClearDB(cxt);
+            dbHdlr.clearDB(cxt);
         });
     }
 

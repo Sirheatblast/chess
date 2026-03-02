@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class MoveManager {
-    private ChessPiece CheckIfOcupied(ChessBoard board,ChessPosition curPos){
+    private ChessPiece checkIfOccupied(ChessBoard board, ChessPosition curPos){
         if(board.getPiece(curPos)!=null)
             return board.getPiece(curPos);
         return null;
@@ -22,7 +22,7 @@ public class MoveManager {
             rowVal++;
             if(rowVal<9){
                 ChessPosition curPos = new ChessPosition(rowVal, myPos.getColumn());
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,canAttack)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,canAttack)) {
                     break;
                 }
             }
@@ -36,7 +36,7 @@ public class MoveManager {
             rowVal--;
             if(rowVal>0){
                 ChessPosition curPos = new ChessPosition(rowVal, myPos.getColumn());
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,canAttack)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,canAttack)) {
                     break;
                 }
             }
@@ -50,7 +50,7 @@ public class MoveManager {
             colVal++;
             if(colVal<9){
                 ChessPosition curPos = new ChessPosition(myPos.getRow(), colVal);
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
                     break;
                 }
             }
@@ -65,7 +65,7 @@ public class MoveManager {
             colVal--;
             if(colVal>0){
                 ChessPosition curPos = new ChessPosition(myPos.getRow(), colVal);
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
                     break;
                 }
             }
@@ -82,7 +82,7 @@ public class MoveManager {
             rowVal++;
             if(colVal<9&&rowVal<9){
                 ChessPosition curPos = new ChessPosition(rowVal, colVal);
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
                     break;
                 }
             }
@@ -99,7 +99,7 @@ public class MoveManager {
             rowVal++;
             if(colVal>0&&rowVal<9){
                 ChessPosition curPos = new ChessPosition(rowVal, colVal);
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
                     break;
                 }
             }
@@ -116,7 +116,7 @@ public class MoveManager {
             rowVal--;
             if(colVal<9&&rowVal>0){
                 ChessPosition curPos = new ChessPosition(rowVal, colVal);
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
                     break;
                 }
             }
@@ -133,7 +133,7 @@ public class MoveManager {
             rowVal--;
             if(colVal>0&&rowVal>0){
                 ChessPosition curPos = new ChessPosition(rowVal, colVal);
-                if (AddMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
+                if (addMove(board, myPos, tCol, promotionP, pMoves, curPos,true)) {
                     break;
                 }
             }
@@ -141,8 +141,8 @@ public class MoveManager {
         return pMoves;
     }
 
-    private boolean AddMove(ChessBoard board, ChessPosition myPos, ChessGame.TeamColor tCol, ChessPiece.PieceType promotionP, Collection<ChessMove> pMoves, ChessPosition curPos,boolean canAttack) {
-        ChessPiece curP = CheckIfOcupied(board,curPos);
+    private boolean addMove(ChessBoard board, ChessPosition myPos, ChessGame.TeamColor tCol, ChessPiece.PieceType promotionP, Collection<ChessMove> pMoves, ChessPosition curPos,boolean canAttack) {
+        ChessPiece curP = checkIfOccupied(board,curPos);
         if(curP!=null){
             if(tCol!=curP.getTeamColor()&&canAttack){
                 pMoves.add(new ChessMove(myPos,curPos,promotionP));

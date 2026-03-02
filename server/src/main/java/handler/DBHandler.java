@@ -6,12 +6,12 @@ import service.DBService;
 import service.result.DBResult;
 
 public class DBHandler {
-    public void ClearDB(Context cxt) {
+    public void clearDB(Context cxt) {
         Gson gson = new Gson();
         DBResult result;
         try{
             DBService dbService = new DBService();
-            dbService.ClearDB();
+            dbService.clearDB();
             result = new DBResult(200,"");
         }
         catch (Exception e){

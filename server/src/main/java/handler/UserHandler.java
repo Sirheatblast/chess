@@ -10,14 +10,14 @@ import service.result.UserResult;
 import service.UserService;
 
 public class UserHandler {
-    public void RegisterUser(Context cxt) {
+    public void registerUser(Context cxt) {
         UserResult result;
         Gson gson = new Gson();
 
         try{
             UserData uData = gson.fromJson(cxt.body(),UserData.class);
             UserService uService = new UserService();
-            result = uService.RegisterUser(uData);
+            result = uService.registerUser(uData);
         }
         catch (UserAlreadyExistsException e){
             result = new UserResult(403,e.getMessage(),null,null);
@@ -34,14 +34,14 @@ public class UserHandler {
         cxt.status(result.getStatus());
     }
 
-    public void LoginUser(Context cxt) {
+    public void loginUser(Context cxt) {
         UserResult result;
         Gson gson = new Gson();
 
         try{
             UserData uData = gson.fromJson(cxt.body(),UserData.class);
             UserService uService = new UserService();
-            result = uService.LoginUser(uData);
+            result = uService.loginUser(uData);
         }
         catch (UserUnauthorizedException e){
             result = new UserResult(401,e.getMessage(),null,null);
@@ -58,7 +58,7 @@ public class UserHandler {
         cxt.status(result.getStatus());
     }
 
-    public void LogOutUser(Context cxt) {
+    public void logoutUser(Context cxt) {
         UserResult result;
         Gson gson = new Gson();
 
@@ -69,7 +69,7 @@ public class UserHandler {
             }
 
             UserService uService = new UserService();
-            result = uService.LogoutUser(authToken);
+            result = uService.logoutUser(authToken);
         }
         catch (UserUnauthorizedException e){
             result = new UserResult(401,e.getMessage(),null,null);
