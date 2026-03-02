@@ -34,7 +34,7 @@ public class ServiceTests {
     @Test
     @Order(0)
     @DisplayName("AddUserSuccess")
-    public void AddUserSuccess() throws Exception {
+    public void addUserSuccess() throws Exception {
         UserService userService = new UserService();
         UserData userData = new UserData("cool name", "cool password", "my email dude");
         UserResult result = userService.registerUser(userData);
@@ -46,7 +46,7 @@ public class ServiceTests {
     @Test
     @Order(1)
     @DisplayName("AddUserFail")
-    public void AddUserFail() throws Exception {
+    public void addUserFail() throws Exception {
 
         assertThrows(BadRequestException.class, () -> {
             UserService userService = new UserService();
@@ -58,7 +58,7 @@ public class ServiceTests {
     @Test
     @Order(2)
     @DisplayName("LoginUserSuccess")
-    public void LoginUserSuccess() throws Exception {
+    public void loginUserSuccess() throws Exception {
         UserData userData = new UserData("cool name", "cool password", "my email dude");
         userDAO.createUser(userData);
         String authToken = authDAO.createAuthToken(userData.getUsername());
@@ -72,7 +72,7 @@ public class ServiceTests {
     @Test
     @Order(2)
     @DisplayName("LoginUserFail")
-    public void LoginUserFail() throws Exception {
+    public void loginUserFail() throws Exception {
 
         assertThrows(UserUnauthorizedException.class, () -> {
             UserService userService = new UserService();
@@ -86,7 +86,7 @@ public class ServiceTests {
     @Test
     @Order(3)
     @DisplayName("LogoutUserSuccess")
-    public void LogoutUserSuccess() throws Exception {
+    public void logoutUserSuccess() throws Exception {
         UserData userData = new UserData("cool name", "cool password", "my email dude");
         userDAO.createUser(userData);
         String authToken = authDAO.createAuthToken(userData.getUsername());
@@ -98,7 +98,7 @@ public class ServiceTests {
     @Test
     @Order(4)
     @DisplayName("LogoutUserFail")
-    public void LogoutUserFail() throws Exception {
+    public void logoutUserFail() throws Exception {
 
         assertThrows(UserUnauthorizedException.class, () -> {
             UserService userService = new UserService();
