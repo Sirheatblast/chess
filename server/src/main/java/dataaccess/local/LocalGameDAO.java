@@ -12,26 +12,26 @@ import java.util.List;
 import java.util.Map;
 
 public class LocalGameDAO implements GameDAO {
-    private final static Map<Integer, GameData> gameDatamap = new HashMap<>();
+    private final static Map<Integer, GameData> GAME_DATA_MAP = new HashMap<>();
     private static int nextIndex = 1;
 
     @Override
     public int createGame(GameRequest gameReq) throws Exception {
         int gameID = nextIndex;
-        gameDatamap.put(gameID, new GameData(gameID, null, null, new ChessGame(), gameReq.getGameName()));
+        GAME_DATA_MAP.put(gameID, new GameData(gameID, null, null, new ChessGame(), gameReq.getGameName()));
         nextIndex=nextIndex+1;
         return gameID;
     }
 
     @Override
     public GameData getGame(int gameID) throws Exception {
-        return gameDatamap.get(gameID);
+        return GAME_DATA_MAP.get(gameID);
     }
 
     @Override
     public List<GameMetaData> listGames() throws Exception {
         List<GameMetaData> games = new ArrayList<>();
-        for (GameData gameData : gameDatamap.values()) {
+        for (GameData gameData : GAME_DATA_MAP.values()) {
             games.add(new GameMetaData(gameData.getGameID(), gameData.getName(),
                     gameData.getWhiteUsername(), gameData.getBlackUsername()));
         }
@@ -45,6 +45,6 @@ public class LocalGameDAO implements GameDAO {
 
     @Override
     public void flush() throws Exception {
-        gameDatamap.clear();
+        GAME_DATA_MAP.clear();
     }
 }

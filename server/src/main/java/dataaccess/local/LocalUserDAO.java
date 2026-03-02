@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalUserDAO implements UserDAO {
-    private static final Map<String, UserData> internalUserData = new HashMap<>();
+    private static final Map<String, UserData> INTERNAL_USER_DATA = new HashMap<>();
 
     @Override
     public UserData getUserData(String username) throws Exception {
         if (username==null||username.isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
-        return internalUserData.get(username);
+        return INTERNAL_USER_DATA.get(username);
     }
 
     @Override
@@ -23,11 +23,11 @@ public class LocalUserDAO implements UserDAO {
         if (userData.getUsername().isEmpty() || userData.getPassword().isEmpty() || userData.getEmail().isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
-        internalUserData.put(userData.getUsername(), userData);
+        INTERNAL_USER_DATA.put(userData.getUsername(), userData);
     }
 
     @Override
     public void flush() throws Exception {
-        internalUserData.clear();
+        INTERNAL_USER_DATA.clear();
     }
 }
