@@ -1,9 +1,9 @@
 package server;
 
+import handler.DBHandler;
 import handler.GameHandler;
 import handler.UserHandler;
 import io.javalin.*;
-import model.UserData;
 
 public class Server {
 
@@ -41,6 +41,11 @@ public class Server {
         javalin.put("/game", cxt -> {
             GameHandler gameHdlr = new GameHandler();
             gameHdlr.JoinGame(cxt);
+        });
+
+        javalin.delete("/db", cxt -> {
+            DBHandler dbHdlr = new DBHandler();
+            dbHdlr.ClearDB(cxt);
         });
     }
 

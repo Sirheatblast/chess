@@ -42,4 +42,9 @@ public class LocalGameDAO implements GameDAO {
     public void UpdateGame(int gameID, GameRequest gameReq) throws Exception {
 
     }
+
+    @Override
+    public void Flush() throws Exception {
+        gameDatamap.clear();
+    }
 }

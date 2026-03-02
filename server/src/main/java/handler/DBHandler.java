@@ -1,7 +1,25 @@
 package handler;
 
+import com.google.gson.Gson;
+import io.javalin.http.Context;
+import service.DBService;
+import service.result.DBResult;
+
 public class DBHandler {
-    public void ClearDB() {
+    public void ClearDB(Context cxt) {
+        Gson gson = new Gson();
+        DBResult result;
+        try{
+            DBService dbService = new DBService();
+            dbService.ClearDB();
+            result = new DBResult(200,"");
+        }
+        catch (Exception e){
+            result = new DBResult(500,e.getMessage());
+        }
+
+        String resultJson = gson.toJson(result);
+        cxt.result(resultJson);
     }
 
 }

@@ -16,4 +16,6 @@ public interface GameDAO {
     List<GameMetaData> ListGames() throws Exception;
 
     void UpdateGame(int gameID, GameRequest gameReq) throws Exception;
+
+    public void Flush() throws Exception;
 }

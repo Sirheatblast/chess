@@ -38,4 +38,9 @@ public class LocalAuthDAO implements AuthDAO {
     public void DeleteAuthToken(String authToken) throws Exception {
         internalAuthTokenData.remove(authToken);
     }
+
+    @Override
+    public void Flush() throws Exception {
+        internalAuthTokenData.clear();
+    }
 }

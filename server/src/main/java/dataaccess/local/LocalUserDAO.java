@@ -25,4 +25,9 @@ public class LocalUserDAO implements UserDAO {
         }
         internalUserData.put(userData.getUsername(), userData);
     }
+
+    @Override
+    public void Flush() throws Exception {
+        internalUserData.clear();
+    }
 }
