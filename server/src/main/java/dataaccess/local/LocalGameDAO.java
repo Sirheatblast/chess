@@ -39,11 +39,6 @@ public class LocalGameDAO implements GameDAO {
     }
 
     @Override
-    public void updateGame(int gameID, GameRequest gameReq) throws Exception {
-
-    }
-
-    @Override
     public void flush() throws Exception {
         GAME_DATA_MAP.clear();
     }
