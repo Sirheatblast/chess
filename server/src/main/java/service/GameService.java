@@ -16,29 +16,34 @@ public class GameService {
     private final GameDAO gameDAO = new LocalGameDAO();
     private final AuthDAO authDAO = new LocalAuthDAO();
 
-    public GameListResult GetGameList() throws Exception {
+    public GameListResult GetGameList(String authToken) throws Exception {
+        authDAO.GetAuthUsername(authToken);
         return new GameListResult(200, "", gameDAO.ListGames());
     }
 
     public GameResult CreateGame(String authToken, GameRequest gameReq) throws Exception {
         authDAO.GetAuthUsername(authToken);
+        if(gameReq.getGameName()==null){
+            throw new BadRequestException("Error: bad request");
+        }
+
         return new GameResult(200, "", gameDAO.CreateGame(gameReq));
     }
 
     public GameResult JoinGame(String authToken, GameRequest gameReq) throws Exception {
         String username = authDAO.GetAuthUsername(authToken);
         GameData gameData = gameDAO.GetGame(gameReq.getGameID());
-        if (gameData == null || gameReq.getPlayerColor().isEmpty() ||
+        if (gameData == null || gameReq.getPlayerColor()==null ||
                 !gameReq.getPlayerColor().equals("WHITE") && !gameReq.getPlayerColor().equals("BLACK")) {
             throw new BadRequestException("Error: bad request");
         }
         if (gameReq.getPlayerColor().equals("WHITE")) {
-            if (!gameData.getWhiteUsername().isEmpty()) {
+            if (gameData.getWhiteUsername()!=null) {
                 throw new UserAlreadyExistsException("Error: already taken");
             }
             gameData.setWhiteUsername(username);
         } else {
-            if (!gameData.getBlackUsername().isEmpty()) {
+            if (gameData.getBlackUsername() != null) {
                 throw new UserAlreadyExistsException("Error: already taken");
             }
             gameData.setBlackUsername(username);

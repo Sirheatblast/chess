@@ -19,7 +19,7 @@ public class GameHandler {
                 throw new UserUnauthorizedException("Error: unauthorized");
             }
             GameService gameService = new GameService();
-            result = gameService.GetGameList();
+            result = gameService.GetGameList(authToken);
 
         } catch (UserUnauthorizedException e) {
             result = new GameListResult(401, e.getMessage(), null);
@@ -29,6 +29,7 @@ public class GameHandler {
 
         String resultJson = gson.toJson(result);
         cxt.result(resultJson);
+        cxt.status(result.getStatus());
     }
 
     public void CreateGame(Context cxt) {
@@ -54,6 +55,7 @@ public class GameHandler {
 
         String resultJson = gson.toJson(result);
         cxt.result(resultJson);
+        cxt.status(result.getStatus());
     }
 
     public void JoinGame(Context cxt) {
@@ -81,5 +83,6 @@ public class GameHandler {
 
         String resultJson = gson.toJson(result);
         cxt.result(resultJson);
+        cxt.status(result.getStatus());
     }
 }

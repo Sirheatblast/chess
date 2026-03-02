@@ -13,13 +13,13 @@ import java.util.Map;
 
 public class LocalGameDAO implements GameDAO {
     private final static Map<Integer, GameData> gameDatamap = new HashMap<>();
-    int nextIndex = 0;
+    private static int nextIndex = 1;
 
     @Override
     public int CreateGame(GameRequest gameReq) throws Exception {
         int gameID = nextIndex;
-        gameDatamap.put(gameID, new GameData(gameID, "", "", new ChessGame(), gameReq.getGameName()));
-        nextIndex++;
+        gameDatamap.put(gameID, new GameData(gameID, null, null, new ChessGame(), gameReq.getGameName()));
+        nextIndex=nextIndex+1;
         return gameID;
     }
 
