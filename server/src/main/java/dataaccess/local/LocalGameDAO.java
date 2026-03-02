@@ -16,7 +16,7 @@ public class LocalGameDAO implements GameDAO {
     private static int nextIndex = 1;
 
     @Override
-    public int CreateGame(GameRequest gameReq) throws Exception {
+    public int createGame(GameRequest gameReq) throws Exception {
         int gameID = nextIndex;
         gameDatamap.put(gameID, new GameData(gameID, null, null, new ChessGame(), gameReq.getGameName()));
         nextIndex=nextIndex+1;
@@ -24,12 +24,12 @@ public class LocalGameDAO implements GameDAO {
     }
 
     @Override
-    public GameData GetGame(int gameID) throws Exception {
+    public GameData getGame(int gameID) throws Exception {
         return gameDatamap.get(gameID);
     }
 
     @Override
-    public List<GameMetaData> ListGames() throws Exception {
+    public List<GameMetaData> listGames() throws Exception {
         List<GameMetaData> games = new ArrayList<>();
         for (GameData gameData : gameDatamap.values()) {
             games.add(new GameMetaData(gameData.getGameID(), gameData.getName(),
@@ -39,12 +39,12 @@ public class LocalGameDAO implements GameDAO {
     }
 
     @Override
-    public void UpdateGame(int gameID, GameRequest gameReq) throws Exception {
+    public void updateGame(int gameID, GameRequest gameReq) throws Exception {
 
     }
 
     @Override
-    public void Flush() throws Exception {
+    public void flush() throws Exception {
         gameDatamap.clear();
     }
 }

@@ -11,7 +11,7 @@ public class LocalUserDAO implements UserDAO {
     private static final Map<String, UserData> internalUserData = new HashMap<>();
 
     @Override
-    public UserData GetUserData(String username) throws Exception {
+    public UserData getUserData(String username) throws Exception {
         if (username==null||username.isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
@@ -19,7 +19,7 @@ public class LocalUserDAO implements UserDAO {
     }
 
     @Override
-    public void CreateUser(UserData userData) throws Exception {
+    public void createUser(UserData userData) throws Exception {
         if (userData.getUsername().isEmpty() || userData.getPassword().isEmpty() || userData.getEmail().isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
@@ -27,7 +27,7 @@ public class LocalUserDAO implements UserDAO {
     }
 
     @Override
-    public void Flush() throws Exception {
+    public void flush() throws Exception {
         internalUserData.clear();
     }
 }

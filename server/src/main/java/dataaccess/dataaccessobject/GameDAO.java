@@ -7,13 +7,13 @@ import service.result.GameMetaData;
 import java.util.List;
 
 public interface GameDAO {
-    int CreateGame(GameRequest gameReq) throws Exception;
+    int createGame(GameRequest gameReq) throws Exception;
 
-    GameData GetGame(int gameID) throws Exception;
+    GameData getGame(int gameID) throws Exception;
 
-    List<GameMetaData> ListGames() throws Exception;
+    List<GameMetaData> listGames() throws Exception;
 
-    void UpdateGame(int gameID, GameRequest gameReq) throws Exception;
+    void updateGame(int gameID, GameRequest gameReq) throws Exception;
 
-    public void Flush() throws Exception;
+    public void flush() throws Exception;
 }

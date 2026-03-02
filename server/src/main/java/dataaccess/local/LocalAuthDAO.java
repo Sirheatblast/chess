@@ -12,7 +12,7 @@ public class LocalAuthDAO implements AuthDAO {
     private static final Map<String, String> internalAuthTokenData = new HashMap<>();
 
     @Override
-    public String GetAuthUsername(String authToken) throws Exception {
+    public String getAuthUsername(String authToken) throws Exception {
         if (internalAuthTokenData.get(authToken)==null) {
             throw new UserUnauthorizedException("Error: unauthorized");
         }
@@ -20,7 +20,7 @@ public class LocalAuthDAO implements AuthDAO {
     }
 
     @Override
-    public String CreateAuthToken(String username) throws Exception {
+    public String createAuthToken(String username) throws Exception {
         if (username.isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
@@ -31,7 +31,7 @@ public class LocalAuthDAO implements AuthDAO {
     }
 
     @Override
-    public void DeleteAuthToken(String authToken) throws Exception {
+    public void deleteAuthToken(String authToken) throws Exception {
         if(!internalAuthTokenData.containsKey(authToken)){
             throw new UserUnauthorizedException("Error: unauthorized");
         }
@@ -39,7 +39,7 @@ public class LocalAuthDAO implements AuthDAO {
     }
 
     @Override
-    public void Flush() throws Exception {
+    public void flush() throws Exception {
         internalAuthTokenData.clear();
     }
 }

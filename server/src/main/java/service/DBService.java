@@ -12,9 +12,9 @@ public class DBService {
     GameDAO gDAO = new LocalGameDAO();
     UserDAO uDAO = new LocalUserDAO();
     public void ClearDB() throws Exception {
-        aDAO.Flush();
-        gDAO.Flush();
-        uDAO.Flush();
+        aDAO.flush();
+        gDAO.flush();
+        uDAO.flush();
     }
 
 }

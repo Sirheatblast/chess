@@ -17,22 +17,22 @@ public class GameService {
     private final AuthDAO authDAO = new LocalAuthDAO();
 
     public GameListResult GetGameList(String authToken) throws Exception {
-        authDAO.GetAuthUsername(authToken);
-        return new GameListResult(200, "", gameDAO.ListGames());
+        authDAO.getAuthUsername(authToken);
+        return new GameListResult(200, "", gameDAO.listGames());
     }
 
     public GameResult CreateGame(String authToken, GameRequest gameReq) throws Exception {
-        authDAO.GetAuthUsername(authToken);
+        authDAO.getAuthUsername(authToken);
         if(gameReq.getGameName()==null){
             throw new BadRequestException("Error: bad request");
         }
 
-        return new GameResult(200, "", gameDAO.CreateGame(gameReq));
+        return new GameResult(200, "", gameDAO.createGame(gameReq));
     }
 
     public GameResult JoinGame(String authToken, GameRequest gameReq) throws Exception {
-        String username = authDAO.GetAuthUsername(authToken);
-        GameData gameData = gameDAO.GetGame(gameReq.getGameID());
+        String username = authDAO.getAuthUsername(authToken);
+        GameData gameData = gameDAO.getGame(gameReq.getGameID());
         if (gameData == null || gameReq.getPlayerColor()==null ||
                 !gameReq.getPlayerColor().equals("WHITE") && !gameReq.getPlayerColor().equals("BLACK")) {
             throw new BadRequestException("Error: bad request");

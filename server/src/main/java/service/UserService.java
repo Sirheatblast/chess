@@ -19,12 +19,12 @@ public class UserService {
             throw new BadRequestException("Error: bad request");
         }
 
-        UserData userServerData = userDAO.GetUserData(uData.getUsername());
+        UserData userServerData = userDAO.getUserData(uData.getUsername());
         if (userServerData != null) {
             throw new UserAlreadyExistsException("Error: already taken");
         }
-        userDAO.CreateUser(uData);
-        String authToken = authDAO.CreateAuthToken(uData.getUsername());
+        userDAO.createUser(uData);
+        String authToken = authDAO.createAuthToken(uData.getUsername());
         return new UserResult(200, "", uData.getUsername(), authToken);
     }
 
@@ -33,13 +33,13 @@ public class UserService {
                 uData.getPassword()==null||uData.getPassword().isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
-        UserData userServerData = userDAO.GetUserData(uData.getUsername());
+        UserData userServerData = userDAO.getUserData(uData.getUsername());
 
         if (userServerData == null || !uData.getPassword().equals(userServerData.getPassword())) {
             throw new UserUnauthorizedException("Error: unauthorized");
         }
 
-        String authToken = authDAO.CreateAuthToken(uData.getUsername());
+        String authToken = authDAO.createAuthToken(uData.getUsername());
         return new UserResult(200, "", uData.getUsername(), authToken);
     }
 
@@ -47,8 +47,8 @@ public class UserService {
         if(authToken==null){
             throw new UserUnauthorizedException("Error: unauthorized");
         }
-        String username = authDAO.GetAuthUsername(authToken);
-        authDAO.DeleteAuthToken(authToken);
+        String username = authDAO.getAuthUsername(authToken);
+        authDAO.deleteAuthToken(authToken);
         return new UserResult(200, "", "", "");
     }
 
