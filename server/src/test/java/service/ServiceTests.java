@@ -8,12 +8,16 @@ import dataaccess.local.LocalGameDAO;
 import dataaccess.local.LocalUserDAO;
 
 import dataaccess.serverexception.BadRequestException;
+import dataaccess.serverexception.UserAlreadyExistsException;
 import dataaccess.serverexception.UserUnauthorizedException;
+import handler.GameRequest;
 import model.UserData;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import service.result.GameListResult;
+import service.result.GameResult;
 import service.result.UserResult;
 
 import java.util.Objects;
@@ -103,6 +107,86 @@ public class ServiceTests {
         assertThrows(UserUnauthorizedException.class, () -> {
             UserService userService = new UserService();
             UserResult result = userService.logoutUser(null);
+        });
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("GetGameListSuccess")
+    public void getGameListSuccess() throws Exception {
+        GameService gameService = new GameService();
+        String authToken = authDAO.createAuthToken("User1");
+        gameService.createGame(authToken, new GameRequest("Game1", null, 1));
+
+        GameListResult result = gameService.getGameList(authToken);
+        assert (result.getGames().size() == 1);
+        assert (result.getStatus() == 200);
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("GetGameListFail")
+    public void getGameListFail() throws Exception {
+
+        assertThrows(UserUnauthorizedException.class, () -> {
+            GameService gameService = new GameService();
+            String authToken = "BadToken";
+            gameService.createGame(authToken, new GameRequest("Game1", null, 1));
+
+            GameListResult result = gameService.getGameList(authToken);
+        });
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("CreateGameSuccess")
+    public void createGameSuccess() throws Exception {
+        GameService gameService = new GameService();
+        String authToken = authDAO.createAuthToken("User1");
+        GameResult result = gameService.createGame(authToken, new GameRequest("Game1",
+                null, 1));
+        assert (result.getStatus() == 200);
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("CreateGameFail")
+    public void createGameFail() throws Exception {
+
+        assertThrows(UserUnauthorizedException.class, () -> {
+            GameService gameService = new GameService();
+            String authToken = "BadToken";
+            GameResult result = gameService.createGame(authToken, new GameRequest("Game1",
+                    null, 1));
+        });
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("JoinGameSuccess")
+    public void joinGameSuccess() throws Exception {
+        GameService gameService = new GameService();
+        String authToken = authDAO.createAuthToken("User1");
+        gameService.createGame(authToken,
+                new GameRequest("Game1", null, 1));
+        GameResult result = gameService.joinGame(authToken,
+                new GameRequest("Game1", "WHITE", 1));
+        assert (result.getStatus() == 200);
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("JoinGameFail")
+    public void joinGameFail() throws Exception {
+
+        assertThrows(UserAlreadyExistsException.class, () -> {
+            GameService gameService = new GameService();
+            String authToken = authDAO.createAuthToken("User1");
+            gameService.createGame(authToken,
+                    new GameRequest("Game1", null, 1));
+            gameService.joinGame(authToken, new GameRequest("Game1", "WHITE", 1));
+            GameResult result = gameService.joinGame(authToken,
+                    new GameRequest("Game1", "WHITE", 1));
         });
     }
 }
