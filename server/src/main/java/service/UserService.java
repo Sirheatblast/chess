@@ -2,6 +2,7 @@ package service;
 
 import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.dataaccessobject.UserDAO;
+import dataaccess.database.DBUserDAO;
 import dataaccess.local.LocalAuthDAO;
 import dataaccess.local.LocalUserDAO;
 import dataaccess.serverexception.BadRequestException;
@@ -11,7 +12,7 @@ import model.UserData;
 import service.result.UserResult;
 
 public class UserService {
-    private final UserDAO userDAO = new LocalUserDAO();
+    private final UserDAO userDAO = new DBUserDAO();
     private final AuthDAO authDAO = new LocalAuthDAO();
 
     public UserResult registerUser(UserData uData) throws Exception {
