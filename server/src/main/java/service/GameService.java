@@ -2,6 +2,8 @@ package service;
 
 import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.dataaccessobject.GameDAO;
+import dataaccess.database.DBAuthDAO;
+import dataaccess.database.DBGameDAO;
 import dataaccess.local.LocalAuthDAO;
 import dataaccess.local.LocalGameDAO;
 import dataaccess.serverexception.BadRequestException;
@@ -13,8 +15,8 @@ import service.result.GameResult;
 
 
 public class GameService {
-    private final GameDAO gameDAO = new LocalGameDAO();
-    private final AuthDAO authDAO = new LocalAuthDAO();
+    private final GameDAO gameDAO = new DBGameDAO();
+    private final AuthDAO authDAO = new DBAuthDAO();
 
     public GameListResult getGameList(String authToken) throws Exception {
         authDAO.getAuthUsername(authToken);
