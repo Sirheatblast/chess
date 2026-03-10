@@ -4,6 +4,7 @@ import chess.ChessGame;
 import com.google.gson.Gson;
 import dataaccess.DatabaseManager;
 import dataaccess.dataaccessobject.GameDAO;
+import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.DataAccessException;
 import handler.GameRequest;
 import model.GameData;
@@ -34,6 +35,10 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public int createGame(GameRequest gameReq) throws Exception {
+        if(gameReq.getGameName().isEmpty()){
+            throw new BadRequestException("Error: Bad Request");
+        }
+
         DatabaseManager.connect(createStatements);
         String statement = "INSERT INTO game (whiteUsername,blackUsername, game,gameName) VALUES (?, ?, ?, ?)";
         try(Connection conn = DatabaseManager.connectToDB()) {
