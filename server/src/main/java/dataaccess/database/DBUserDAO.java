@@ -32,7 +32,6 @@ public class DBUserDAO implements UserDAO {
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override

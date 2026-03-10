@@ -2,6 +2,7 @@ package service;
 
 import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.dataaccessobject.UserDAO;
+import dataaccess.database.DBAuthDAO;
 import dataaccess.database.DBUserDAO;
 import dataaccess.local.LocalAuthDAO;
 import dataaccess.local.LocalUserDAO;
@@ -14,7 +15,7 @@ import service.result.UserResult;
 
 public class UserService {
     private final UserDAO userDAO = new DBUserDAO();
-    private final AuthDAO authDAO = new LocalAuthDAO();
+    private final AuthDAO authDAO = new DBAuthDAO();
 
     public UserResult registerUser(UserData uData) throws Exception {
         if(uData.getUsername()==null||uData.getPassword()==null||uData.getEmail()==null){
