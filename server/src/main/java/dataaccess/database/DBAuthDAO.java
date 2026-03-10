@@ -4,6 +4,7 @@ import dataaccess.DatabaseManager;
 import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.DataAccessException;
+import dataaccess.serverexception.UserUnauthorizedException;
 
 import java.sql.Connection;
 import java.util.UUID;
@@ -32,9 +33,19 @@ public class DBAuthDAO implements AuthDAO {
 
     @Override
     public String getAuthUsername(String authToken) throws Exception {
-        String statement = "SELECT password,email FROM user WHERE username = ?";
+        String statement = "SELECT username FROM auth WHERE authToken = ?";
+        try(Connection conn = DatabaseManager.connectToDB()){
+            try(var preparedStatement = conn.prepareStatement(statement)){
+                preparedStatement.setString(1,authToken);
+                try(var qRes = preparedStatement.executeQuery()){
+                    if (!qRes.next()) {
+                        throw new UserUnauthorizedException("Error: unauthorized");
+                    }
+                    return qRes.getString(1);
+                }
 
-        return "";
+            }
+        }
     }
 
     @Override
