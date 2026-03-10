@@ -7,5 +7,5 @@ public interface AuthDAO {
 
     public void deleteAuthToken(String authToken) throws Exception;
 
-    public void flush()throws Exception;
+    public void flush() throws Exception;
 }

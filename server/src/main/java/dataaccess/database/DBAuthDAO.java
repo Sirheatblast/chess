@@ -3,7 +3,6 @@ package dataaccess.database;
 import dataaccess.DatabaseManager;
 import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.serverexception.BadRequestException;
-import dataaccess.serverexception.DataAccessException;
 import dataaccess.serverexception.UserUnauthorizedException;
 
 import java.sql.Connection;
@@ -23,16 +22,9 @@ public class DBAuthDAO implements AuthDAO {
             """
     };
 
-    public DBAuthDAO() {
-        try {
-            configureDatabase();
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public String getAuthUsername(String authToken) throws Exception {
+        DatabaseManager.connect(createStatements);
         String statement = "SELECT username FROM auth WHERE authToken = ?";
         try(Connection conn = DatabaseManager.connectToDB()){
             try(var preparedStatement = conn.prepareStatement(statement)){
@@ -50,6 +42,7 @@ public class DBAuthDAO implements AuthDAO {
 
     @Override
     public String createAuthToken(String username) throws Exception {
+        DatabaseManager.connect(createStatements);
         if (username.isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
@@ -69,6 +62,7 @@ public class DBAuthDAO implements AuthDAO {
 
     @Override
     public void deleteAuthToken(String authToken) throws Exception {
+        DatabaseManager.connect(createStatements);
         String statement = "DELETE FROM auth WHERE authToken = ?";
         try(Connection conn = DatabaseManager.connectToDB()){
             try(var authStatement = conn.prepareStatement(
@@ -90,23 +84,15 @@ public class DBAuthDAO implements AuthDAO {
 
     @Override
     public void flush() throws Exception {
-        String statement = "DROP TABLE auth";
+        try {
+            DatabaseManager.connect(createStatements);
+            String statement = "DROP TABLE auth";
 
-        try(Connection conn = DatabaseManager.connectToDB();){
-            conn.prepareStatement(statement).execute();
-        }
-    }
-
-    private void configureDatabase() throws DataAccessException {
-        DatabaseManager.createDatabase();
-        try (Connection conn = DatabaseManager.connectToDB();) {
-            for (String statement : createStatements) {
-                try (var preparedStatement = conn.prepareStatement(statement)) {
-                    preparedStatement.executeUpdate();
-                }
+            try (Connection conn = DatabaseManager.connectToDB();) {
+                conn.prepareStatement(statement).execute();
             }
         } catch (Exception e) {
-            throw new DataAccessException(String.format("Unable to configure database: %s", e.getMessage()));
+            throw new Exception("Error: " + e.getMessage());
         }
     }
 }
