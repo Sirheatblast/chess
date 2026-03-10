@@ -13,11 +13,11 @@ public class DBAuthDAO implements AuthDAO {
             """
             CREATE TABLE IF NOT EXISTS  auth (
               `id` int NOT NULL AUTO_INCREMENT,
-              `username` varchar(256) NOT NULL,
               `authToken` varchar(256) NOT NULL,
+              `username` varchar(256) NOT NULL,
               PRIMARY KEY (`id`),
-              INDEX(username),
-              INDEX(authToken)
+              INDEX(authToken),
+              INDEX(username)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
             """
     };
@@ -32,6 +32,8 @@ public class DBAuthDAO implements AuthDAO {
 
     @Override
     public String getAuthUsername(String authToken) throws Exception {
+        String statement = "SELECT password,email FROM user WHERE username = ?";
+
         return "";
     }
 
@@ -42,11 +44,11 @@ public class DBAuthDAO implements AuthDAO {
         }
 
         String nAuthToken = UUID.randomUUID().toString();
-        String statement = "INSERT INTO auth (username,authToken) VALUES (?, ?)";
+        String statement = "INSERT INTO auth (authToken,username) VALUES (?, ?)";
         try(Connection conn = DatabaseManager.connectToDB()){
             try(var preparedStatement = conn.prepareStatement(statement)){
-                preparedStatement.setString(1, username);
-                preparedStatement.setString(2,nAuthToken);
+                preparedStatement.setString(1,nAuthToken);
+                preparedStatement.setString(2, username);
                 preparedStatement.execute();
             }
         }
@@ -56,12 +58,22 @@ public class DBAuthDAO implements AuthDAO {
 
     @Override
     public void deleteAuthToken(String authToken) throws Exception {
-
+        String statement = "DELETE FROM auth WHERE authToken = ?";
+        try(Connection conn = DatabaseManager.connectToDB()){
+            try(var preparedStatement = conn.prepareStatement(statement)){
+                preparedStatement.setString(1,authToken);
+                preparedStatement.execute();
+            }
+        }
     }
 
     @Override
     public void flush() throws Exception {
+        String statement = "DROP TABLE auth";
 
+        try(Connection conn = DatabaseManager.connectToDB();){
+            conn.prepareStatement(statement).execute();
+        }
     }
 
     private void configureDatabase() throws DataAccessException {
