@@ -1,5 +1,7 @@
 package dataaccess.database;
 
+import chess.ChessGame;
+import com.google.gson.Gson;
 import dataaccess.DatabaseManager;
 import dataaccess.dataaccessobject.GameDAO;
 import dataaccess.serverexception.DataAccessException;
@@ -10,17 +12,21 @@ import service.result.GameMetaData;
 import java.sql.Connection;
 import java.util.List;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 public class DBGameDAO implements GameDAO {
     private final String[] createStatements = {
             """
             CREATE TABLE IF NOT EXISTS  game (
               `gameID` int NOT NULL AUTO_INCREMENT,
-              `whiteUsername` varchar(256) NOT NULL,
-              `blackUsername` varchar(256) NOT NULL,
+              `whiteUsername` varchar(256) NULL,
+              `blackUsername` varchar(256) NULL,
               `game` TEXT DEFAULT NULL,
+              `gameName` varchar(256) NOT NULL,
               PRIMARY KEY (`gameID`),
               INDEX(whiteUsername),
-              INDEX(blackUsername)
+              INDEX(blackUsername),
+              INDEX(gameName)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
             """
     };
@@ -35,6 +41,22 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public int createGame(GameRequest gameReq) throws Exception {
+        String statement = "INSERT INTO game (whiteUsername,blackUsername, game,gameName) VALUES (?, ?, ?, ?)";
+        try(Connection conn = DatabaseManager.connectToDB()) {
+            try (var preparedStatement = conn.prepareStatement(statement,RETURN_GENERATED_KEYS)) {
+                    preparedStatement.setString(1,null);
+                    preparedStatement.setString(2,null);
+                    preparedStatement.setString(3,new Gson().toJson(new ChessGame()));
+                    preparedStatement.setString(4,gameReq.getGameName());
+                    preparedStatement.executeUpdate();
+
+                    try(var qKey = preparedStatement.getGeneratedKeys()){
+                        if(qKey.next()){
+                            return qKey.getInt(1);
+                        }
+                    }
+            }
+        }
         return 0;
     }
 
