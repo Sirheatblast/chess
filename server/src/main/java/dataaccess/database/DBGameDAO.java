@@ -32,16 +32,9 @@ public class DBGameDAO implements GameDAO {
             """
     };
 
-    public DBGameDAO() {
-        try {
-            configureDatabase();
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public int createGame(GameRequest gameReq) throws Exception {
+        DatabaseManager.connect(createStatements);
         String statement = "INSERT INTO game (whiteUsername,blackUsername, game,gameName) VALUES (?, ?, ?, ?)";
         try(Connection conn = DatabaseManager.connectToDB()) {
             try (var preparedStatement = conn.prepareStatement(statement,RETURN_GENERATED_KEYS)) {
@@ -63,6 +56,7 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public GameData getGame(int gameID) throws Exception {
+        DatabaseManager.connect(createStatements);
         String statement = "SELECT whiteUsername,blackUsername,game,gameName FROM game WHERE gameID = ?";
         try(Connection conn = DatabaseManager.connectToDB()) {
             try(var preparedStatement = conn.prepareStatement(statement)){
@@ -84,6 +78,7 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public List<GameMetaData> listGames() throws Exception {
+        DatabaseManager.connect(createStatements);
         List<GameMetaData> games = new ArrayList<>();
         String statement = "SELECT gameID,whiteUsername,blackUsername,gameName FROM game";
         try(Connection conn = DatabaseManager.connectToDB();) {
@@ -104,6 +99,7 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public void update(GameData game) throws Exception {
+        DatabaseManager.connect(createStatements);
         String statement = "UPDATE game SET whiteUsername = ?, blackUsername = ?, game = ? WHERE gameID = ?";
         try(Connection conn = DatabaseManager.connectToDB();){
             try(var preparedStatement = conn.prepareStatement(statement)){
@@ -118,10 +114,16 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public void flush() throws Exception {
-        String statement = "DROP TABLE game";
+        try{
+            DatabaseManager.connect(createStatements);
+            String statement = "DROP TABLE game";
 
-        try(Connection conn = DatabaseManager.connectToDB();){
-            conn.prepareStatement(statement).execute();
+            try(Connection conn = DatabaseManager.connectToDB();){
+                conn.prepareStatement(statement).execute();
+            }
+        }
+        catch (Exception e){
+            throw  new Exception("Error: "+e.getMessage());
         }
     }
 
@@ -134,7 +136,7 @@ public class DBGameDAO implements GameDAO {
                 }
             }
         } catch (Exception e) {
-            throw new DataAccessException(String.format("Unable to configure database: %s", e.getMessage()));
+            throw new DataAccessException(String.format("Error: Unable to configure database: %s", e.getMessage()));
         }
     }
 }

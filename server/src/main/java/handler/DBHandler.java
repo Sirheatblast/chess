@@ -20,6 +20,7 @@ public class DBHandler {
 
         String resultJson = gson.toJson(result);
         cxt.result(resultJson);
+        cxt.status(result.getStatus());
     }
 
 }

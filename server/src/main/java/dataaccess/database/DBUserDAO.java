@@ -26,16 +26,9 @@ public class DBUserDAO implements UserDAO {
             """
     };
 
-    public DBUserDAO() {
-        try {
-            configureDatabase();
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public UserData getUserData(String username) throws Exception {
+        DatabaseManager.connect(createStatements);
         if (username==null||username.isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
@@ -58,6 +51,7 @@ public class DBUserDAO implements UserDAO {
 
     @Override
     public void createUser(UserData userData) throws Exception {
+        DatabaseManager.connect(createStatements);
         if (userData.getUsername().isEmpty() || userData.getPassword().isEmpty() || userData.getEmail().isEmpty()) {
             throw new BadRequestException("Error: bad request");
         }
@@ -80,23 +74,19 @@ public class DBUserDAO implements UserDAO {
 
     @Override
     public void flush() throws Exception {
-        String statement = "DROP TABLE user";
+        try{
+            DatabaseManager.connect(createStatements);
+            String statement = "DROP TABLE user";
 
-        try(Connection conn = DatabaseManager.connectToDB();){
-            conn.prepareStatement(statement).execute();
-        }
-    }
-
-    private void configureDatabase() throws DataAccessException {
-        DatabaseManager.createDatabase();
-        try (Connection conn = DatabaseManager.connectToDB();) {
-            for (String statement : createStatements) {
-                try (var preparedStatement = conn.prepareStatement(statement)) {
-                    preparedStatement.executeUpdate();
-                }
+            try(Connection conn = DatabaseManager.connectToDB();){
+                conn.prepareStatement(statement).execute();
             }
-        } catch (Exception e) {
-            throw new DataAccessException(String.format("Unable to configure database: %s", e.getMessage()));
         }
+        catch (Exception e){
+            throw  new Exception("Error: "+e.getMessage());
+        }
+
     }
+
+
 }

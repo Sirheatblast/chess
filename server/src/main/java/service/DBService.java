@@ -15,9 +15,15 @@ public class DBService {
     GameDAO gDAO = new DBGameDAO();
     UserDAO uDAO = new DBUserDAO();
     public void clearDB() throws Exception {
-        aDAO.flush();
-        gDAO.flush();
-        uDAO.flush();
+        try{
+            aDAO.flush();
+            gDAO.flush();
+            uDAO.flush();
+        }
+        catch (Exception e){
+            throw new Exception("Error: Failed to connect to Server");
+        }
+
     }
 
 }
