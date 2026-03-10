@@ -71,6 +71,16 @@ public class DBAuthDAO implements AuthDAO {
     public void deleteAuthToken(String authToken) throws Exception {
         String statement = "DELETE FROM auth WHERE authToken = ?";
         try(Connection conn = DatabaseManager.connectToDB()){
+            try(var authStatement = conn.prepareStatement(
+                    "SELECT authToken FROM auth WHERE authToken = ?")){
+                authStatement.setString(1,authToken);
+                try(var qRes = authStatement.executeQuery()){
+                    if(!qRes.next()){
+                        throw new UserUnauthorizedException("Error: unauthorized");
+                    }
+                }
+            }
+
             try(var preparedStatement = conn.prepareStatement(statement)){
                 preparedStatement.setString(1,authToken);
                 preparedStatement.execute();
