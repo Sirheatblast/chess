@@ -62,7 +62,23 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public GameData getGame(int gameID) throws Exception {
-        return null;
+        String statement = "SELECT whiteUsername,blackUsername,game,gameName FROM game WHERE gameID = ?";
+        try(Connection conn = DatabaseManager.connectToDB()) {
+            try(var preparedStatement = conn.prepareStatement(statement)){
+                preparedStatement.setInt(1,gameID);
+                try(var qRes = preparedStatement.executeQuery()){
+                    if(qRes.next()){
+                        String wName = qRes.getString(1);
+                        String bName = qRes.getString(2);
+                        ChessGame game = new Gson().fromJson(qRes.getString(3), ChessGame.class);
+                        String gameName = qRes.getString(4);
+                        return new GameData(gameID,wName,bName,game,gameName);
+                    }
+                    return null;
+                }
+
+            }
+        }
     }
 
     @Override
@@ -71,8 +87,26 @@ public class DBGameDAO implements GameDAO {
     }
 
     @Override
-    public void flush() throws Exception {
+    public void update(GameData game) throws Exception {
+        String statement = "UPDATE game SET whiteUsername = ?, blackUsername = ?, game = ? WHERE gameID = ?";
+        try(Connection conn = DatabaseManager.connectToDB();){
+            try(var preparedStatement = conn.prepareStatement(statement)){
+                preparedStatement.setString(1,game.getWhiteUsername());
+                preparedStatement.setString(2,game.getBlackUsername());
+                preparedStatement.setString(3,new Gson().toJson(game.getGame()));
+                preparedStatement.setInt(4,game.getGameID());
+                preparedStatement.execute();
+            }
+        }
+    }
 
+    @Override
+    public void flush() throws Exception {
+        String statement = "DROP TABLE game";
+
+        try(Connection conn = DatabaseManager.connectToDB();){
+            conn.prepareStatement(statement).execute();
+        }
     }
 
     private void configureDatabase() throws DataAccessException {

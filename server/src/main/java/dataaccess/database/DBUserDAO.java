@@ -40,20 +40,20 @@ public class DBUserDAO implements UserDAO {
             throw new BadRequestException("Error: bad request");
         }
         String statement = "SELECT password,email FROM user WHERE username = ?";
-            try(Connection conn = DatabaseManager.connectToDB()) {
-                try(var preparedStatement = conn.prepareStatement(statement)){
-                    preparedStatement.setString(1,username);
-                    try(var qRes = preparedStatement.executeQuery()){
-                        if(qRes.next()){
-                            String password =qRes.getString(1);
-                            String email = qRes.getString(2);
-                            return new UserData(username,password,email);
-                        }
-                        return null;
+        try(Connection conn = DatabaseManager.connectToDB()) {
+            try(var preparedStatement = conn.prepareStatement(statement)){
+                preparedStatement.setString(1,username);
+                try(var qRes = preparedStatement.executeQuery()){
+                    if(qRes.next()){
+                        String password =qRes.getString(1);
+                        String email = qRes.getString(2);
+                        return new UserData(username,password,email);
                     }
-
+                    return null;
                 }
+
             }
+        }
     }
 
     @Override

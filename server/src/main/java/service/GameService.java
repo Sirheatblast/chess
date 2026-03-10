@@ -4,8 +4,6 @@ import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.dataaccessobject.GameDAO;
 import dataaccess.database.DBAuthDAO;
 import dataaccess.database.DBGameDAO;
-import dataaccess.local.LocalAuthDAO;
-import dataaccess.local.LocalGameDAO;
 import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.UserAlreadyExistsException;
 import handler.GameRequest;
@@ -50,6 +48,7 @@ public class GameService {
             }
             gameData.setBlackUsername(username);
         }
+        gameDAO.update(gameData);
         return new GameResult(200, "", null);
     }
 }
