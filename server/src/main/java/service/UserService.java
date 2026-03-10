@@ -9,6 +9,7 @@ import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.UserAlreadyExistsException;
 import dataaccess.serverexception.UserUnauthorizedException;
 import model.UserData;
+import org.mindrot.jbcrypt.BCrypt;
 import service.result.UserResult;
 
 public class UserService {
@@ -36,7 +37,7 @@ public class UserService {
         }
         UserData userServerData = userDAO.getUserData(uData.getUsername());
 
-        if (userServerData == null || !uData.getPassword().equals(userServerData.getPassword())) {
+        if (userServerData == null || !BCrypt.checkpw(uData.getPassword(), userServerData.getPassword())) {
             throw new UserUnauthorizedException("Error: unauthorized");
         }
 

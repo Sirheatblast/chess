@@ -2,6 +2,7 @@ package dataaccess.database;
 
 import dataaccess.DatabaseManager;
 import dataaccess.dataaccessobject.UserDAO;
+import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.DataAccessException;
 import model.UserData;
 import org.mindrot.jbcrypt.BCrypt;
@@ -36,15 +37,35 @@ public class DBUserDAO implements UserDAO {
 
     @Override
     public UserData getUserData(String username) throws Exception {
-        return null;
+        if (username==null||username.isEmpty()) {
+            throw new BadRequestException("Error: bad request");
+        }
+        String statement = "SELECT password,email FROM user WHERE username = ?";
+            try(Connection conn = DatabaseManager.connectToDB()) {
+                try(var preparedStatement = conn.prepareStatement(statement)){
+                    preparedStatement.setString(1,username);
+                    try(var qRes = preparedStatement.executeQuery()){
+                        if(qRes.next()){
+                            String password =qRes.getString(1);
+                            String email = qRes.getString(2);
+                            return new UserData(username,password,email);
+                        }
+                        return null;
+                    }
+
+                }
+            }
     }
 
     @Override
     public void createUser(UserData userData) throws Exception {
+        if (userData.getUsername().isEmpty() || userData.getPassword().isEmpty() || userData.getEmail().isEmpty()) {
+            throw new BadRequestException("Error: bad request");
+        }
         String statement = "INSERT INTO user (username,password, email) VALUES (?, ?, ?)";
         String hashedPassword = BCrypt.hashpw(userData.getPassword(), BCrypt.gensalt());
 
-        try(Connection conn = DatabaseManager.connectToDB();){
+        try(Connection conn = DatabaseManager.connectToDB()){
             try(var preparedStatement = conn.prepareStatement(statement)){
                 preparedStatement.setString(1, userData.getUsername());
                 preparedStatement.setString(2,hashedPassword);
@@ -53,8 +74,8 @@ public class DBUserDAO implements UserDAO {
             }
         }
         catch (SQLException e){
-            throw new DataAccessException(String.format("Unable to add User to database: %s", e.getMessage()));
-
+            throw new DataAccessException(
+                    String.format("Unable to add User to database: %s", e.getMessage()));
         }
     }
 
