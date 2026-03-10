@@ -10,6 +10,7 @@ import model.GameData;
 import service.result.GameMetaData;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
@@ -83,7 +84,22 @@ public class DBGameDAO implements GameDAO {
 
     @Override
     public List<GameMetaData> listGames() throws Exception {
-        return List.of();
+        List<GameMetaData> games = new ArrayList<>();
+        String statement = "SELECT gameID,whiteUsername,blackUsername,gameName FROM game";
+        try(Connection conn = DatabaseManager.connectToDB();) {
+            try (var preparedStatement = conn.prepareStatement(statement)) {
+                try(var qRes = preparedStatement.executeQuery()){
+                    while(qRes.next()){
+                        int gameID = qRes.getInt(1);
+                        String wName = qRes.getString(2);
+                        String bName =qRes.getString(3);
+                        String gName = qRes.getString(4);
+                        games.add(new GameMetaData(gameID,gName,wName,bName));
+                    }
+                }
+            }
+        }
+        return games;
     }
 
     @Override
