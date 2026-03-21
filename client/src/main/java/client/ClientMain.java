@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class ClientMain {
     private static boolean isLoggedIn = false;
     private static UserData uData;
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         while(true){
@@ -33,14 +34,16 @@ public class ClientMain {
         System.out.print("3: Help\n");
         System.out.print("4: Quit\n");
 
-        Scanner scanner = new Scanner(System.in);
         int input = scanner.nextInt();
         switch (input){
             case 1:
+                isLoggedIn = registerUI();
                 break;
             case 2:
+                isLoggedIn = loginUI();
                 break;
             case 3:
+                loggedOutHelpUI();
                 break;
             case 4:
                 return false;
@@ -53,8 +56,31 @@ public class ClientMain {
     }
 
     private static boolean registerUI(){
+        String username;
+        String password;
+        String email;
 
-        return true;
+        System.out.print("\nRegister User:\n");
+
+        System.out.print("\tUsername: ");
+        username = scanner.next();
+
+        System.out.print("\tPassword: ");
+        password = scanner.next();
+
+        System.out.print("\tEmail: ");
+        email = scanner.next();
+
+        return false;
+    }
+
+    private static boolean loginUI(){
+
+        return false;
+    }
+
+    private static void loggedOutHelpUI(){
+
     }
 
     private static boolean loggedInUI(){
