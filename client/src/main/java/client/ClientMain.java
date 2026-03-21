@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ClientMain {
     private static boolean isLoggedIn = false;
-    private static UserData uData;
+    private static UserData currentUser;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class ClientMain {
                 }
             }
             else{
-                if(loggedInUI()){
+                if(!loggedInUI()){
                     break;
                 }
             }
@@ -71,7 +71,8 @@ public class ClientMain {
         System.out.print("\tEmail: ");
         email = scanner.next();
 
-        return false;
+        currentUser = new UserData(username,password,email); //temp
+        return true; //temp
     }
 
     private static boolean loginUI(){
@@ -85,7 +86,9 @@ public class ClientMain {
 
         System.out.print("\tPassword: ");
         password = scanner.next();
-        return false;
+
+        currentUser = new UserData(username,password,null); //temp
+        return true; //temp
     }
 
     private static void loggedOutHelpUI(){
@@ -97,6 +100,48 @@ public class ClientMain {
     }
 
     private static boolean loggedInUI(){
+        System.out.print("Chess 240\n");
+        System.out.print("\n");
+
+        StringBuilder sb;
+        sb = new StringBuilder("[");
+        sb.append(currentUser.getUsername());
+        sb.append("]\n");
+
+        System.out.print(sb.toString());
+
+        System.out.print("1: Play Game\n");
+        System.out.print("2: List Games\n");
+        System.out.print("3: Create Game\n");
+        System.out.print("4: Observe Game\n");
+        System.out.print("5: Logout\n");
+        System.out.print("6: Help\n");
+        System.out.print("7: Quit\n");
+
+        String input = scanner.next();
+        switch (input){
+            case "1":
+
+                break;
+            case "2":
+
+                break;
+            case "3":
+
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+            case "6":
+                break;
+            case "7":
+                return false;
+            default:
+                System.out.print("Bad input\n");
+                break;
+        }
+
         return true;
     }
 
