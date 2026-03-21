@@ -34,18 +34,18 @@ public class ClientMain {
         System.out.print("3: Help\n");
         System.out.print("4: Quit\n");
 
-        int input = scanner.nextInt();
+        String input = scanner.next();
         switch (input){
-            case 1:
+            case "1":
                 isLoggedIn = registerUI();
                 break;
-            case 2:
+            case "2":
                 isLoggedIn = loginUI();
                 break;
-            case 3:
+            case "3":
                 loggedOutHelpUI();
                 break;
-            case 4:
+            case "4":
                 return false;
             default:
                 System.out.print("Bad input\n");
@@ -75,12 +75,25 @@ public class ClientMain {
     }
 
     private static boolean loginUI(){
+        String username;
+        String password;
 
+        System.out.print("\nLogin User:\n");
+
+        System.out.print("\tUsername: ");
+        username = scanner.next();
+
+        System.out.print("\tPassword: ");
+        password = scanner.next();
         return false;
     }
 
     private static void loggedOutHelpUI(){
-
+        System.out.print("\nHelp:\n");
+        System.out.print("\tCreate Account: Creates a new Chess Account\n");
+        System.out.print("\tLogin: Allows a pre-existing user  to access their Chess Account\n");
+        System.out.print("\tHelp: Helps the user navigate the menu\n");
+        System.out.print("\tQuit: Quits application\n");
     }
 
     private static boolean loggedInUI(){
