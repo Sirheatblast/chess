@@ -1,5 +1,6 @@
 package client;
 
+import chess.ChessBoard;
 import model.UserData;
 
 import java.util.Scanner;
@@ -10,19 +11,23 @@ public class ClientMain {
     private static final Scanner scanner = new Scanner(System.in);
     private static final ServerFacade facade = new ServerFacade();
 
+    private static final ChessBoard board = new ChessBoard();
+
     public static void main(String[] args) {
-        while(true){
-            if(!isLoggedIn){
-                if(!preLoginUI()){
-                    break;
-                }
-            }
-            else{
-                if(!loggedInUI()){
-                    break;
-                }
-            }
-        }
+        board.resetBoard();
+        ui.ChessBoard.DrawBoard(board);
+//        while(true){
+//            if(!isLoggedIn){
+//                if(!preLoginUI()){
+//                    break;
+//                }
+//            }
+//            else{
+//                if(!loggedInUI()){
+//                    break;
+//                }
+//            }
+//        }
     }
 
     private static boolean preLoginUI(){
