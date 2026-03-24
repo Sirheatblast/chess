@@ -8,6 +8,7 @@ public class ClientMain {
     private static boolean isLoggedIn = false;
     private static UserData currentUser;
     private static final Scanner scanner = new Scanner(System.in);
+    private static final ServerFacade facade = new ServerFacade();
 
     public static void main(String[] args) {
         while(true){
@@ -71,8 +72,14 @@ public class ClientMain {
         System.out.print("\tEmail: ");
         email = scanner.next();
 
-        currentUser = new UserData(username,password,email); //temp
-        return true; //temp
+        try{
+            currentUser = facade.createUser(username,password,email);
+            return true;
+        }
+        catch (Exception e){
+            System.out.print("Failed to create User");
+            return false;
+        }
     }
 
     private static boolean loginUI(){
@@ -161,7 +168,13 @@ public class ClientMain {
     }
 
     private static void playGame() {
+        String gameName;
+        String dColor;
 
+        System.out.print("Enter Game Name: ");
+        gameName = scanner.next();
+        System.out.print("Enter Desired Color: ");
+        dColor = scanner.next();
     }
 
     private static void listGames(){
@@ -169,7 +182,8 @@ public class ClientMain {
     }
 
     private static void createGame(){
-
+        String gameName;
+        gameName = scanner.next();
     }
 
     private static void observeGame(){
