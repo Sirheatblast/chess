@@ -10,7 +10,11 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 public class ServerInterface {
     private final HttpClient client = HttpClient.newHttpClient();
-    private final String serverUrl ="http://localhost:8080/";
+    private final String serverUrl;
+
+    public ServerInterface(String url) {
+        serverUrl = url;
+    }
 
     public String createUser(String userData) throws Exception{
         var request = buildRequest("POST", "user",userData,"");

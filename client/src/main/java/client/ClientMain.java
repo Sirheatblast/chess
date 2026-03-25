@@ -9,7 +9,7 @@ public class ClientMain {
     private static boolean isLoggedIn = false;
     private static AuthData currentUser;
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final ServerFacade FACADE = new ServerFacade();
+    private static final ServerFacade FACADE = new ServerFacade("http://localhost:8080/");
 
     public static void main(String[] args) {
         while(true){
