@@ -1,8 +1,11 @@
 package client;
 
+import model.AuthData;
+import model.result.GameListResult;
 import model.result.UserResult;
 import org.junit.jupiter.api.*;
 import server.Server;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ServerFacadeTests {
 
@@ -47,11 +50,31 @@ public class ServerFacadeTests {
     }
 
     @Test
-    void logoutUser() {
+    void logoutUserSuccess() {
+        Assertions.assertDoesNotThrow(()->{
+            UserResult result = facade.loginUser("GoodName","StrongPassword");
+            AuthData authData = new AuthData(result.getAuthToken(),result.getUsername());
+            facade.logoutUser(authData);
+        });
     }
 
     @Test
-    void getGames() {
+    void logoutUserFail() throws Exception {
+        AuthData authData = new AuthData("Bad Token","Jim");
+        UserResult result = facade.logoutUser(authData);
+        assert(result.getStatus()!=200);
+    }
+
+    @Test
+    void getGamesSuccess() throws Exception {
+        UserResult userResult = facade.loginUser("GoodName","StrongPassword");
+        GameListResult result = facade.getGames(new AuthData(userResult.getAuthToken(), userResult.getUsername()));
+        assert (result.getStatus()==200);
+    }
+
+    @Test
+    void getGamesFailure() {
+
     }
 
     @Test

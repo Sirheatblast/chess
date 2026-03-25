@@ -21,8 +21,8 @@ public class ServerFacade {
         return gson.fromJson(inter.loginUser(asJson),UserResult.class);
     }
 
-    public void logoutUser(AuthData authData) throws Exception{
-        inter.logoutUser(authData);
+    public UserResult logoutUser(AuthData authData) throws Exception{
+        return gson.fromJson(inter.logoutUser(authData),UserResult.class);
     }
 
     public GameListResult getGames(AuthData authData) throws Exception{

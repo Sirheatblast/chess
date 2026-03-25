@@ -26,9 +26,10 @@ public class ServerInterface {
         return response.body();
     }
 
-    public void logoutUser(AuthData authData) throws Exception{
+    public String logoutUser(AuthData authData) throws Exception{
         var request = buildRequest("DELETE", "session",null, authData.getAuthToken());
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        return response.body();
     }
 
     public String getGames(AuthData authData) throws Exception{
