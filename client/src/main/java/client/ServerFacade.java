@@ -4,44 +4,46 @@ import com.google.gson.Gson;
 import model.*;
 import model.result.GameListResult;
 import model.result.GameMetaData;
+import serverInterface.ServerInterface;
 
 import java.util.Collection;
 import java.util.List;
 
 public class ServerFacade {
     private static final Gson gson = new Gson();
+    private static final ServerInterface inter = new ServerInterface();
 
-    public AuthData createUser(String username,String password, String email){
+    public AuthData createUser(String username,String password, String email) throws Exception {
         UserData desiredUser = new UserData(username,password,email);
         String asJson = gson.toJson(desiredUser);
-        return null;
+        return gson.fromJson(inter.createUser(asJson),AuthData.class);
     }
 
-    public AuthData loginUser(String username,String password){
+    public AuthData loginUser(String username,String password) throws Exception{
         UserData desiredUser = new UserData(username,password,null);
         String asJson = gson.toJson(desiredUser);
-        return null;
+        return gson.fromJson(inter.loginUser(asJson),AuthData.class);
     }
 
-    public void logoutUser(AuthData authData){
-
-    }
-
-    public List<GameMetaData> getGames(AuthData authData){
-
-        return null;
-    }
-
-    public void createGame(AuthData authData,String gameName){
+    public void logoutUser(AuthData authData) throws Exception{
 
     }
 
-    public GameData joinGame(AuthData authData,int gameId,String dColor,String username){
+    public List<GameMetaData> getGames(AuthData authData) throws Exception{
 
         return null;
     }
 
-    public GameData observeGame(AuthData authData,int gameId){
+    public void createGame(AuthData authData,String gameName)throws Exception{
+
+    }
+
+    public GameData joinGame(AuthData authData,int gameId,String dColor,String username)throws Exception{
+
+        return null;
+    }
+
+    public GameData observeGame(AuthData authData,int gameId)throws Exception{
         return null;
     }
 }

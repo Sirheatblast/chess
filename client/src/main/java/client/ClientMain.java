@@ -81,7 +81,7 @@ public class ClientMain {
             return true;
         }
         catch (Exception e){
-            System.out.print("Failed to create User");
+            System.out.print("\nFailed to create User\n");
             return false;
         }
     }
@@ -98,8 +98,14 @@ public class ClientMain {
         System.out.print("\tPassword: ");
         password = scanner.next();
 
-        currentUser = facade.loginUser(username,password);
-        return true; //temp
+        try{
+            currentUser = facade.loginUser(username,password);
+            return true;
+        }
+        catch (Exception e){
+            System.out.print("\nFailed to create User\n");
+            return false;
+        }
     }
 
     private static void loggedOutHelpUI(){
