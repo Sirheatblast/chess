@@ -5,9 +5,6 @@ import model.*;
 import model.result.*;
 import serverInterface.ServerInterface;
 
-import java.util.Collection;
-import java.util.List;
-
 public class ServerFacade {
     private static final Gson gson = new Gson();
     private static final ServerInterface inter = new ServerInterface();

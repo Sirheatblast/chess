@@ -218,7 +218,7 @@ public class ClientMain {
             ui.ChessBoard.DrawBoard(result.getGameData().getGame().getBoard(),dColor);
         }
         catch (Exception e){
-            System.out.print(e.getMessage());
+            System.out.printf("%s",e.getMessage());
         }
     }
 
@@ -286,7 +286,7 @@ public class ClientMain {
         }
 
         if(id >listResult.getGames().size()+1){
-            throw new Exception("ID doesn't exist");
+            throw new Exception("ID doesn't exist\n");
         }
         return listResult.getGames().get(id -1).getGameID();
     }
