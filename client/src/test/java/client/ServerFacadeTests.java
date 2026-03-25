@@ -8,6 +8,8 @@ import model.result.UserResult;
 import org.junit.jupiter.api.*;
 import server.Server;
 
+import java.util.UUID;
+
 public class ServerFacadeTests {
 
     private static Server server;
@@ -28,7 +30,8 @@ public class ServerFacadeTests {
 
     @Test
     void createUserSuccess() throws Exception {
-        UserResult result = facade.createUser("GoodName","StrongPassword","Email");
+        String randomUsername = UUID.randomUUID().toString();
+        UserResult result = facade.createUser(randomUsername,"StrongPassword","Email");
         assert(result.getStatus()==200);
     }
 
