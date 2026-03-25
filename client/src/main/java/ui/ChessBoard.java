@@ -36,7 +36,7 @@ public class ChessBoard {
         for(int y=start;checkDirection(pColor,y,end);){
             System.out.print(BORDER);
             System.out.print(sides.get(y-1));
-            for(int x = start;checkDirection(pColor,x,end);){
+            for(int x = 1;x<=BOARD_SIZE;x++){
                 System.out.print(SET_TEXT_COLOR_BLUE);
                 if(x%2==y%2){
                     System.out.print(WHITE_BACKGROUND);
@@ -45,12 +45,6 @@ public class ChessBoard {
                 else{
                     System.out.print(BLACK_BACKGROUND);
                     System.out.print(getChar(x,y,board));
-                }
-                if(pColor.equals("WHITE")){
-                    x--;
-                }
-                else{
-                    x++;
                 }
             }
             System.out.print(SET_TEXT_COLOR_WHITE);
