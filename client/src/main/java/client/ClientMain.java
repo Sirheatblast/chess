@@ -1,6 +1,5 @@
 package client;
 
-import chess.ChessBoard;
 import model.AuthData;
 import model.result.*;
 
