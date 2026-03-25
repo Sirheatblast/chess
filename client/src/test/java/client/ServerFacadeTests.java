@@ -2,6 +2,8 @@ package client;
 
 import model.AuthData;
 import model.result.GameListResult;
+import model.result.GameRequest;
+import model.result.GameResult;
 import model.result.UserResult;
 import org.junit.jupiter.api.*;
 import server.Server;
@@ -79,7 +81,19 @@ public class ServerFacadeTests {
     }
 
     @Test
-    void createGame() {
+    void createGameSuccess() throws Exception {
+        UserResult userResult = facade.loginUser("GoodName","StrongPassword");
+        GameRequest gameReq = new GameRequest("GameNameGoesHere",null,0);
+        GameResult result = facade.createGame(new AuthData(userResult.getAuthToken(), userResult.getUsername()),gameReq);
+        assert (result.getStatus()==200);
+    }
+
+    @Test
+    void createGameFailure() throws Exception {
+        AuthData authToken = new AuthData("BadTOken","Hello");
+        GameRequest gameReq = new GameRequest("GameNameGoesHere",null,0);
+        GameResult result = facade.createGame(authToken,gameReq);
+        assert (result.getStatus()!=200);
     }
 
     @Test
