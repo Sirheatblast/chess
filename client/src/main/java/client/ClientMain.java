@@ -78,7 +78,7 @@ public class ClientMain {
         email = scanner.next();
 
         try{
-            UserResult result = facade.loginUser(username,password);
+            UserResult result = facade.createUser(username,password,email);
             if(result.getStatus()!= 200){
                 throw new Exception(result.getMessage());
             }
