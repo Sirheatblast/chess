@@ -73,8 +73,9 @@ public class ServerFacadeTests {
     }
 
     @Test
-    void getGamesFailure() {
-
+    void getGamesFailure() throws Exception {
+        GameListResult result = facade.getGames(new AuthData("Bad TOken", "Bad Name"));
+        assert (result.getStatus()!=200);
     }
 
     @Test
