@@ -3,6 +3,7 @@ package client;
 import chess.ChessBoard;
 import model.AuthData;
 import model.UserData;
+import model.result.UserResult;
 
 import java.util.Scanner;
 
@@ -99,11 +100,15 @@ public class ClientMain {
         password = scanner.next();
 
         try{
-            currentUser = facade.loginUser(username,password);
+            UserResult result = facade.loginUser(username,password);
+            if(result.getStatus()!= 200){
+                throw new Exception(result.getMessage());
+            }
+            currentUser = new AuthData(result.getAuthToken(),result.getUsername());
             return true;
         }
         catch (Exception e){
-            System.out.print("\nFailed to create User\n");
+            System.out.printf("\nFailed to login User: %s\n",e.getMessage());
             return false;
         }
     }
@@ -150,8 +155,7 @@ public class ClientMain {
                 observeGame();
                 break;
             case "5":
-                currentUser = null;
-                isLoggedIn = false;
+                logoutUser();
                 break;
             case "6":
                 loginHelpUI();
@@ -164,6 +168,17 @@ public class ClientMain {
         }
 
         return true;
+    }
+
+    private static void logoutUser() {
+        try{
+            facade.logoutUser(currentUser);
+        }
+        catch (Exception e){
+            System.out.print("\nFailed to delete auth token\n");
+        }
+        currentUser = null;
+        isLoggedIn = false;
     }
 
     private static void loginHelpUI() {
