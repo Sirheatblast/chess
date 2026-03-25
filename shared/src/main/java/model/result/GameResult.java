@@ -46,6 +46,8 @@ public class GameResult {
         return gameID;
     }
 
+    public GameData getGameData() {return gameData;}
+
     public GameResult(int status, String message, Integer gameID, GameData gameData) {
         this.status = status;
         this.message = message;

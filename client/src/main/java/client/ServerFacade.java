@@ -42,7 +42,9 @@ public class ServerFacade {
         return null;
     }
 
-    public GameData observeGame(AuthData authData,int gameId)throws Exception{
-        return null;
+    public GameResult observeGame(AuthData authData,int gameId)throws Exception{
+        GameRequest gameReq = new GameRequest(null,"OBSERVER",gameId);
+        String toJson = gson.toJson(gameReq);
+        return gson.fromJson(inter.observeGame(authData,toJson),GameResult.class);
     }
 }

@@ -3,10 +3,7 @@ package client;
 import chess.ChessBoard;
 import model.AuthData;
 import model.UserData;
-import model.result.GameListResult;
-import model.result.GameRequest;
-import model.result.GameResult;
-import model.result.UserResult;
+import model.result.*;
 
 import java.util.Scanner;
 
@@ -249,6 +246,33 @@ public class ClientMain {
     }
 
     private static void observeGame(){
+        System.out.print("Enter ID of game to observe: ");
+        int id = scanner.nextInt();
 
+        try{
+            int gameID = getGameID(id);
+
+            GameResult result = facade.observeGame(currentUser,gameID);
+            if(result.getStatus()!=200){
+                throw new Exception(result.getMessage());
+            }
+
+            ui.ChessBoard.DrawBoard(result.getGameData().getGame().getBoard(),"WHITE");
+        }
+        catch (Exception e){
+            System.out.print(e.getMessage());
+        }
+    }
+
+    private static int getGameID(int id) throws Exception {
+        GameListResult listResult = facade.getGames(currentUser);
+        if(listResult.getStatus()!= 200){
+            throw new Exception(listResult.getMessage());
+        }
+
+        if(id >listResult.getGames().size()+1){
+            throw new Exception("ID doesn't exist");
+        }
+        return listResult.getGames().get(id -1).getGameID();
     }
 }

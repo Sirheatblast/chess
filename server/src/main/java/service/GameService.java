@@ -34,7 +34,9 @@ public class GameService {
         String username = authDAO.getAuthUsername(authToken);
         GameData gameData = gameDAO.getGame(gameReq.getGameID());
         if (gameData == null || gameReq.getPlayerColor()==null ||
-                !gameReq.getPlayerColor().equals("WHITE") && !gameReq.getPlayerColor().equals("BLACK")) {
+                !gameReq.getPlayerColor().equals("WHITE") &&
+                        !gameReq.getPlayerColor().equals("BLACK") &&
+                        !gameReq.getPlayerColor().equals("OBSERVER")) {
             throw new BadRequestException("Error: bad request");
         }
         if (gameReq.getPlayerColor().equals("WHITE")) {
