@@ -7,7 +7,6 @@ import model.result.GameResult;
 import model.result.UserResult;
 import org.junit.jupiter.api.*;
 import server.Server;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ServerFacadeTests {
 
@@ -97,7 +96,21 @@ public class ServerFacadeTests {
     }
 
     @Test
-    void joinGame() {
+    void joinGameSuccess() throws Exception {
+        UserResult userResult = facade.loginUser("GoodName","StrongPassword");
+        AuthData authToken =  new AuthData(userResult.getAuthToken(), userResult.getUsername());
+        GameRequest gameReq = new GameRequest("GameNameGoesHere",null,0);
+        GameResult gameResult = facade.createGame(authToken,gameReq);
+        GameResult result = facade.joinGame(new AuthData(userResult.getAuthToken(), userResult.getUsername()), gameResult.getGameID(), "WHITE");
+        assert (result.getStatus()==200);
+    }
+
+    @Test
+    void joinGameFailure() throws Exception {
+        UserResult userResult = facade.loginUser("GoodName","StrongPassword");
+        AuthData authToken =  new AuthData(userResult.getAuthToken(), userResult.getUsername());
+        GameResult result = facade.joinGame(new AuthData(userResult.getAuthToken(), userResult.getUsername()), 1, "WHITE");
+        assert (result.getStatus()!=200);
     }
 
     @Test
