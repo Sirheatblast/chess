@@ -35,7 +35,15 @@ public class ServerFacadeTests {
     }
 
     @Test
-    void loginUser() {
+    void loginUserSuccess() throws Exception {
+        UserResult result = facade.loginUser("GoodName","StrongPassword");
+        assert(result.getStatus()==200);
+    }
+
+    @Test
+    void loginUserFail() throws Exception {
+        UserResult result = facade.loginUser(null,"StrongPassword");
+        assert(result.getStatus()!=200);
     }
 
     @Test
