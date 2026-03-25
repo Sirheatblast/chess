@@ -6,7 +6,7 @@ import dataaccess.DatabaseManager;
 import dataaccess.dataaccessobject.GameDAO;
 import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.DataAccessException;
-import handler.GameRequest;
+import model.result.GameRequest;
 import model.GameData;
 import model.result.GameMetaData;
 

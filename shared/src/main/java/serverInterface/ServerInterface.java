@@ -1,6 +1,7 @@
 package serverInterface;
 
 import model.AuthData;
+import model.result.GameResult;
 
 import java.net.*;
 import java.net.http.*;
@@ -35,8 +36,10 @@ public class ServerInterface {
         return response.body();
     }
 
-    public void createGame(AuthData authData,String gameName){
-
+    public String createGame(AuthData authData, String gameRequest)throws Exception{
+        var request = buildRequest("POST", "game",gameRequest, authData.getAuthToken());
+        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        return response.body();
     }
 
     public String joinGame(AuthData authData, int gameId, String dColor, String username){

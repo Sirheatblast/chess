@@ -1,7 +1,7 @@
 package dataaccess.database;
 
 import dataaccess.serverexception.BadRequestException;
-import handler.GameRequest;
+import model.result.GameRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

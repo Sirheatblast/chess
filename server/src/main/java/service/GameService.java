@@ -6,7 +6,7 @@ import dataaccess.database.DBAuthDAO;
 import dataaccess.database.DBGameDAO;
 import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.UserAlreadyExistsException;
-import handler.GameRequest;
+import model.result.GameRequest;
 import model.GameData;
 import model.result.GameListResult;
 import model.result.GameResult;

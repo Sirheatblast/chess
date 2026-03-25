@@ -6,14 +6,11 @@ import dataaccess.dataaccessobject.UserDAO;
 import dataaccess.database.DBAuthDAO;
 import dataaccess.database.DBGameDAO;
 import dataaccess.database.DBUserDAO;
-import dataaccess.local.LocalAuthDAO;
-import dataaccess.local.LocalGameDAO;
-import dataaccess.local.LocalUserDAO;
 
 import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.UserAlreadyExistsException;
 import dataaccess.serverexception.UserUnauthorizedException;
-import handler.GameRequest;
+import model.result.GameRequest;
 import model.UserData;
 import org.junit.jupiter.api.*;
 

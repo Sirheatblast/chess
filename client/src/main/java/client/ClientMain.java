@@ -4,6 +4,8 @@ import chess.ChessBoard;
 import model.AuthData;
 import model.UserData;
 import model.result.GameListResult;
+import model.result.GameRequest;
+import model.result.GameResult;
 import model.result.UserResult;
 
 import java.util.Scanner;
@@ -216,8 +218,8 @@ public class ClientMain {
             }
 
             int counter = 1;
+            System.out.print("Current Games:\n");
             for(var gameData:result.getGames()){
-                System.out.print("Current Games:\n");
                 System.out.printf("\t %d: %s white player: %s black player: %s\n",
                         counter,gameData.getGameName(),gameData.getWhiteUsername(),
                         gameData.getBlackUsername());
@@ -231,8 +233,19 @@ public class ClientMain {
     }
 
     private static void createGame(){
+        System.out.print("Enter game name: ");
         String gameName;
         gameName = scanner.next();
+        try{
+            GameRequest gameReq = new GameRequest(gameName,null,0);
+            GameResult result = facade.createGame(currentUser,gameReq);
+            if(result.getStatus()!=200){
+                throw new Exception(result.getMessage());
+            }
+        }
+        catch (Exception e){
+            System.out.printf("\nFailed to create new game: %s\n",e.getMessage());
+        }
     }
 
     private static void observeGame(){

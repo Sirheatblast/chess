@@ -2,9 +2,7 @@ package client;
 
 import com.google.gson.Gson;
 import model.*;
-import model.result.GameListResult;
-import model.result.GameMetaData;
-import model.result.UserResult;
+import model.result.*;
 import serverInterface.ServerInterface;
 
 import java.util.Collection;
@@ -34,8 +32,9 @@ public class ServerFacade {
         return gson.fromJson(inter.getGames(authData),GameListResult.class);
     }
 
-    public void createGame(AuthData authData,String gameName)throws Exception{
-
+    public GameResult createGame(AuthData authData, GameRequest gameReq)throws Exception{
+        String toJson = gson.toJson(gameReq);
+        return gson.fromJson(inter.createGame(authData,toJson),GameResult.class);
     }
 
     public GameData joinGame(AuthData authData,int gameId,String dColor,String username)throws Exception{

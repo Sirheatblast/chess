@@ -5,6 +5,7 @@ import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.UserAlreadyExistsException;
 import dataaccess.serverexception.UserUnauthorizedException;
 import io.javalin.http.Context;
+import model.result.GameRequest;
 import service.GameService;
 import model.result.GameListResult;
 import model.result.GameResult;

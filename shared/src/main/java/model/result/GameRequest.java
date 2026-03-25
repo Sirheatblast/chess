@@ -1,4 +1,4 @@
-package handler;
+package model.result;
 
 import java.util.Objects;
 

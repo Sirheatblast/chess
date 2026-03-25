@@ -2,7 +2,7 @@ package dataaccess.local;
 
 import chess.ChessGame;
 import dataaccess.dataaccessobject.GameDAO;
-import handler.GameRequest;
+import model.result.GameRequest;
 import model.GameData;
 import model.result.GameMetaData;
 

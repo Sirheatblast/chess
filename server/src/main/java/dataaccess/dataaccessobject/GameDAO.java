@@ -1,6 +1,6 @@
 package dataaccess.dataaccessobject;
 
-import handler.GameRequest;
+import model.result.GameRequest;
 import model.GameData;
 import model.result.GameMetaData;
 
