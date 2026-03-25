@@ -30,9 +30,8 @@ public class ServerFacade {
         inter.logoutUser(authData);
     }
 
-    public List<GameMetaData> getGames(AuthData authData) throws Exception{
-
-        return null;
+    public GameListResult getGames(AuthData authData) throws Exception{
+        return gson.fromJson(inter.getGames(authData),GameListResult.class);
     }
 
     public void createGame(AuthData authData,String gameName)throws Exception{

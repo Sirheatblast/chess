@@ -29,16 +29,17 @@ public class ServerInterface {
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
     }
 
-    public String getGames(String authData){
-
-        return null;
+    public String getGames(AuthData authData) throws Exception{
+        var request = buildRequest("Get", "game",null, authData.getAuthToken());
+        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        return response.body();
     }
 
-    public void createGame(String authData,String gameName){
+    public void createGame(AuthData authData,String gameName){
 
     }
 
-    public String joinGame(String authData, int gameId, String dColor, String username){
+    public String joinGame(AuthData authData, int gameId, String dColor, String username){
         return null;
     }
 

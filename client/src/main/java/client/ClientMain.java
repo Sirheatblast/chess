@@ -3,6 +3,7 @@ package client;
 import chess.ChessBoard;
 import model.AuthData;
 import model.UserData;
+import model.result.GameListResult;
 import model.result.UserResult;
 
 import java.util.Scanner;
@@ -86,7 +87,7 @@ public class ClientMain {
             return true;
         }
         catch (Exception e){
-            System.out.print("\nFailed to create User\n");
+            System.out.printf("\nFailed to create User: %s\n",e.getMessage());
             return false;
         }
     }
@@ -165,6 +166,7 @@ public class ClientMain {
                 loginHelpUI();
                 break;
             case "7":
+                logoutUser();
                 return false;
             default:
                 System.out.print("Bad input\n");
@@ -207,6 +209,24 @@ public class ClientMain {
     }
 
     private static void listGames(){
+        try{
+            GameListResult result = facade.getGames(currentUser);
+            if(result.getStatus()!= 200){
+                throw new Exception(result.getMessage());
+            }
+
+            int counter = 1;
+            for(var gameData:result.getGames()){
+                System.out.print("Current Games:\n");
+                System.out.printf("\t %d: %s white player: %s black player: %s\n",
+                        counter,gameData.getGameName(),gameData.getWhiteUsername(),
+                        gameData.getBlackUsername());
+                counter++;
+            }
+
+        } catch (Exception e) {
+            System.out.print("\nFailed to retrieve games\n");
+        }
 
     }
 
