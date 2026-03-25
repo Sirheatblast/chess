@@ -32,7 +32,8 @@ public class ServerFacadeTests {
     void doBefore() throws Exception{
         try{
             facade.createUser("GoodName","StrongPassword","email");
-        } catch (Exception _) {
+        } catch (Exception e) {
+            return;
         }
     }
 
