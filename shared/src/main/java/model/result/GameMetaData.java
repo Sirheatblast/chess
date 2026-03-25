@@ -6,6 +6,7 @@ public class GameMetaData {
     private final int gameID;
     private final String gameName;
     private final String whiteUsername;
+    private final String blackUsername;
 
     @Override
     public String toString() {
@@ -54,6 +55,4 @@ public class GameMetaData {
         this.whiteUsername = whiteUsername;
         this.blackUsername = blackUsername;
     }
-
-    private final String blackUsername;
 }

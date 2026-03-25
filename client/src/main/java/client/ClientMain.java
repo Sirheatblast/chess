@@ -1,13 +1,14 @@
 package client;
 
 import chess.ChessBoard;
+import model.AuthData;
 import model.UserData;
 
 import java.util.Scanner;
 
 public class ClientMain {
     private static boolean isLoggedIn = false;
-    private static UserData currentUser;
+    private static AuthData currentUser;
     private static final Scanner scanner = new Scanner(System.in);
     private static final ServerFacade facade = new ServerFacade();
 
@@ -97,7 +98,7 @@ public class ClientMain {
         System.out.print("\tPassword: ");
         password = scanner.next();
 
-        currentUser = new UserData(username,password,null); //temp
+        currentUser = facade.loginUser(username,password);
         return true; //temp
     }
 
@@ -163,7 +164,7 @@ public class ClientMain {
         System.out.print("\nHelp:\n");
         System.out.print("\tPlay Game: Allows the user to pick and join a game\n");
         System.out.print("\tList Games: Shows all games on the server\n");
-        System.out.print("\tCreate Game: Allows the user to Create and join a new game\n");
+        System.out.print("\tCreate Game: Allows the user to Create a new game\n");
         System.out.print("\tObserve Game: Allows the user to view an ongoing match\n");
         System.out.print("\tLogout: Logs out the current player and returns to start menu\n");
         System.out.print("\tHelp: Helps the user navigate the menu\n");
