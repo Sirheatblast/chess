@@ -201,10 +201,25 @@ public class ClientMain {
         String gameName;
         String dColor;
 
-        System.out.print("Enter Game Name: ");
-        gameName = scanner.next();
+        System.out.print("Enter ID of game: ");
+        int id = scanner.nextInt();
         System.out.print("Enter Desired Color: ");
         dColor = scanner.next();
+        dColor = dColor.toUpperCase();
+
+        try{
+            int gameID = getGameID(id);
+
+            GameResult result = facade.joinGame(currentUser,gameID,dColor);
+            if(result.getStatus()!=200){
+                throw new Exception(result.getMessage());
+            }
+
+            ui.ChessBoard.DrawBoard(result.getGameData().getGame().getBoard(),dColor);
+        }
+        catch (Exception e){
+            System.out.print(e.getMessage());
+        }
     }
 
     private static void listGames(){

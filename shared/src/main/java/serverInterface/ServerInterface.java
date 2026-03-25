@@ -44,7 +44,9 @@ public class ServerInterface {
     }
 
     public String joinGame(AuthData authData, String gameReq)throws Exception{
-        return null;
+        var request = buildRequest("PUT", "game",gameReq, authData.getAuthToken());
+        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        return response.body();
     }
 
     public String observeGame(AuthData authData,String gameReq)throws Exception{

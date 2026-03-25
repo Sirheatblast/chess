@@ -37,9 +37,10 @@ public class ServerFacade {
         return gson.fromJson(inter.createGame(authData,toJson),GameResult.class);
     }
 
-    public GameData joinGame(AuthData authData,int gameId,String dColor,String username)throws Exception{
-
-        return null;
+    public GameResult joinGame(AuthData authData,int gameId,String dColor)throws Exception{
+        GameRequest gameReq = new GameRequest(null,dColor,gameId);
+        String toJson = gson.toJson(gameReq);
+        return gson.fromJson(inter.observeGame(authData,toJson),GameResult.class);
     }
 
     public GameResult observeGame(AuthData authData,int gameId)throws Exception{

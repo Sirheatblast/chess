@@ -44,7 +44,7 @@ public class GameService {
                 throw new UserAlreadyExistsException("Error: already taken");
             }
             gameData.setWhiteUsername(username);
-        } else {
+        } else if(gameReq.getPlayerColor().equals("BLACK")){
             if (gameData.getBlackUsername() != null) {
                 throw new UserAlreadyExistsException("Error: already taken");
             }
