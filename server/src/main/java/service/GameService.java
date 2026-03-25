@@ -8,8 +8,8 @@ import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.UserAlreadyExistsException;
 import handler.GameRequest;
 import model.GameData;
-import service.result.GameListResult;
-import service.result.GameResult;
+import model.result.GameListResult;
+import model.result.GameResult;
 
 
 public class GameService {
@@ -27,7 +27,7 @@ public class GameService {
             throw new BadRequestException("Error: bad request");
         }
 
-        return new GameResult(200, "", gameDAO.createGame(gameReq));
+        return new GameResult(200, "", gameDAO.createGame(gameReq),null);
     }
 
     public GameResult joinGame(String authToken, GameRequest gameReq) throws Exception {
@@ -49,6 +49,6 @@ public class GameService {
             gameData.setBlackUsername(username);
         }
         gameDAO.update(gameData);
-        return new GameResult(200, "", null);
+        return new GameResult(200, "", null,gameData);
     }
 }

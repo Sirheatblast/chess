@@ -6,8 +6,8 @@ import dataaccess.serverexception.UserAlreadyExistsException;
 import dataaccess.serverexception.UserUnauthorizedException;
 import io.javalin.http.Context;
 import service.GameService;
-import service.result.GameListResult;
-import service.result.GameResult;
+import model.result.GameListResult;
+import model.result.GameResult;
 
 public class GameHandler {
     public void getGameList(Context cxt) {
@@ -46,11 +46,11 @@ public class GameHandler {
             result = gameService.createGame(authToken, gameReq);
 
         } catch (BadRequestException e) {
-            result = new GameResult(400, e.getMessage(), null);
+            result = new GameResult(400, e.getMessage(), null,null);
         } catch (UserUnauthorizedException e) {
-            result = new GameResult(401, e.getMessage(), null);
+            result = new GameResult(401, e.getMessage(), null,null);
         } catch (Exception e) {
-            result = new GameResult(500, e.getMessage(), null);
+            result = new GameResult(500, e.getMessage(), null,null);
         }
 
         String resultJson = gson.toJson(result);
@@ -72,13 +72,13 @@ public class GameHandler {
             result = gameService.joinGame(authToken, gameReq);
 
         } catch (BadRequestException e) {
-            result = new GameResult(400, e.getMessage(), null);
+            result = new GameResult(400, e.getMessage(), null,null);
         } catch (UserUnauthorizedException e) {
-            result = new GameResult(401, e.getMessage(), null);
+            result = new GameResult(401, e.getMessage(), null,null);
         } catch (UserAlreadyExistsException e) {
-            result = new GameResult(403, e.getMessage(), null);
+            result = new GameResult(403, e.getMessage(), null,null);
         } catch (Exception e) {
-            result = new GameResult(500, e.getMessage(), null);
+            result = new GameResult(500, e.getMessage(), null,null);
         }
 
         String resultJson = gson.toJson(result);

@@ -3,6 +3,9 @@ package service;
 import dataaccess.dataaccessobject.AuthDAO;
 import dataaccess.dataaccessobject.GameDAO;
 import dataaccess.dataaccessobject.UserDAO;
+import dataaccess.database.DBAuthDAO;
+import dataaccess.database.DBGameDAO;
+import dataaccess.database.DBUserDAO;
 import dataaccess.local.LocalAuthDAO;
 import dataaccess.local.LocalGameDAO;
 import dataaccess.local.LocalUserDAO;
@@ -16,17 +19,17 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import service.result.GameListResult;
-import service.result.GameResult;
-import service.result.UserResult;
+import model.result.GameListResult;
+import model.result.GameResult;
+import model.result.UserResult;
 
 import java.util.Objects;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceTests {
-    static GameDAO gameDAO = new LocalGameDAO();
-    static UserDAO userDAO = new LocalUserDAO();
-    static AuthDAO authDAO = new LocalAuthDAO();
+    static GameDAO gameDAO = new DBGameDAO();
+    static UserDAO userDAO = new DBUserDAO();
+    static AuthDAO authDAO = new DBAuthDAO();
 
     @BeforeAll
     public static void initTest() throws Exception {

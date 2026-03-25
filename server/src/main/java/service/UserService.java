@@ -9,7 +9,7 @@ import dataaccess.serverexception.UserAlreadyExistsException;
 import dataaccess.serverexception.UserUnauthorizedException;
 import model.UserData;
 import org.mindrot.jbcrypt.BCrypt;
-import service.result.UserResult;
+import model.result.UserResult;
 
 public class UserService {
     private final UserDAO userDAO = new DBUserDAO();

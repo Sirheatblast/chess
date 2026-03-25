@@ -3,7 +3,7 @@ package handler;
 import com.google.gson.Gson;
 import io.javalin.http.Context;
 import service.DBService;
-import service.result.DBResult;
+import model.result.DBResult;
 
 public class DBHandler {
     public void clearDB(Context cxt) {

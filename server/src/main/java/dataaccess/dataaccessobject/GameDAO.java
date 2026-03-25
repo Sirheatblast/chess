@@ -2,7 +2,7 @@ package dataaccess.dataaccessobject;
 
 import handler.GameRequest;
 import model.GameData;
-import service.result.GameMetaData;
+import model.result.GameMetaData;
 
 import java.util.List;
 

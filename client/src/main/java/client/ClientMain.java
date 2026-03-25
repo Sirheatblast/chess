@@ -14,20 +14,18 @@ public class ClientMain {
     private static final ChessBoard board = new ChessBoard();
 
     public static void main(String[] args) {
-        board.resetBoard();
-        ui.ChessBoard.DrawBoard(board);
-//        while(true){
-//            if(!isLoggedIn){
-//                if(!preLoginUI()){
-//                    break;
-//                }
-//            }
-//            else{
-//                if(!loggedInUI()){
-//                    break;
-//                }
-//            }
-//        }
+        while(true){
+            if(!isLoggedIn){
+                if(!preLoginUI()){
+                    break;
+                }
+            }
+            else{
+                if(!loggedInUI()){
+                    break;
+                }
+            }
+        }
     }
 
     private static boolean preLoginUI(){

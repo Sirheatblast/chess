@@ -1,19 +1,16 @@
-package service.result;
+package model.result;
 
 import java.util.Objects;
 
-public class GameResult {
+public class DBResult {
     private final int status;
     private final String message;
-    private final Integer gameID;
 
     @Override
-    public String
-    toString() {
-        return "GameResult{" +
+    public String toString() {
+        return "DBResult{" +
                 "status=" + status +
                 ", message='" + message + '\'' +
-                ", gameID=" + gameID +
                 '}';
     }
 
@@ -22,13 +19,13 @@ public class GameResult {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GameResult that = (GameResult) o;
-        return status == that.status && Objects.equals(gameID, that.gameID) && Objects.equals(message, that.message);
+        DBResult dbResult = (DBResult) o;
+        return status == dbResult.status && Objects.equals(message, dbResult.message);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status, message, gameID);
+        return Objects.hash(status, message);
     }
 
     public int getStatus() {
@@ -39,13 +36,8 @@ public class GameResult {
         return message;
     }
 
-    public int getGameID() {
-        return gameID;
-    }
-
-    public GameResult(int status, String message, Integer gameID) {
+    public DBResult(int status, String message) {
         this.status = status;
         this.message = message;
-        this.gameID = gameID;
     }
 }

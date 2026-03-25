@@ -4,7 +4,7 @@ import chess.ChessGame;
 import dataaccess.dataaccessobject.GameDAO;
 import handler.GameRequest;
 import model.GameData;
-import service.result.GameMetaData;
+import model.result.GameMetaData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

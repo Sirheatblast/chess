@@ -8,7 +8,7 @@ import dataaccess.serverexception.BadRequestException;
 import dataaccess.serverexception.DataAccessException;
 import handler.GameRequest;
 import model.GameData;
-import service.result.GameMetaData;
+import model.result.GameMetaData;
 
 import java.sql.Connection;
 import java.util.ArrayList;

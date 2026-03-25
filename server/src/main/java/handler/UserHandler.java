@@ -6,7 +6,7 @@ import dataaccess.serverexception.UserAlreadyExistsException;
 import dataaccess.serverexception.UserUnauthorizedException;
 import io.javalin.http.Context;
 import model.UserData;
-import service.result.UserResult;
+import model.result.UserResult;
 import service.UserService;
 
 public class UserHandler {
