@@ -10,12 +10,12 @@ import java.util.Objects;
 import static ui.EscapeSequences.*;
 
 public class ChessBoard {
-    private static final int boardSize = 8;
-    private static final String border = SET_BG_COLOR_LIGHT_GREY;
-    private static final String whiteBackground = SET_BG_COLOR_CREAM;
-    private static final String blackBackground = SET_BG_COLOR_DARK_GREY;
+    private static final int BOARD_SIZE = 8;
+    private static final String BORDER = SET_BG_COLOR_LIGHT_GREY;
+    private static final String WHITE_BACKGROUND = SET_BG_COLOR_CREAM;
+    private static final String BLACK_BACKGROUND = SET_BG_COLOR_DARK_GREY;
 
-    public static void DrawBoard(chess.ChessBoard board,String pColor){
+    public static void drawBoard(chess.ChessBoard board, String pColor){
         String topBottom = EMPTY + "a  " + " b " + "  c " + "  d  " + "e  " + " f  " + " g " + " h " + EMPTY;
         ArrayList<String> sides = new ArrayList<>(List.of(" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "));
 
@@ -26,24 +26,24 @@ public class ChessBoard {
             sides.reversed();
         }
 
-        int start = (pColor.equals("WHITE"))?boardSize:1;
-        int end = (pColor.equals("WHITE"))?1:boardSize;
+        int start = (pColor.equals("WHITE"))? BOARD_SIZE :1;
+        int end = (pColor.equals("WHITE"))?1: BOARD_SIZE;
 
-        System.out.print(border);
+        System.out.print(BORDER);
         System.out.print(SET_TEXT_BOLD);
         System.out.print(topBottom);
         System.out.print(RESET_BG_COLOR + "\n");
         for(int y=start;checkDirection(pColor,y,end);){
-            System.out.print(border);
+            System.out.print(BORDER);
             System.out.print(sides.get(y-1));
             for(int x = start;checkDirection(pColor,x,end);){
                 System.out.print(SET_TEXT_COLOR_BLUE);
                 if(x%2==y%2){
-                    System.out.print(whiteBackground);
+                    System.out.print(WHITE_BACKGROUND);
                     System.out.print(getChar(x,y,board));
                 }
                 else{
-                    System.out.print(blackBackground);
+                    System.out.print(BLACK_BACKGROUND);
                     System.out.print(getChar(x,y,board));
                 }
                 if(pColor.equals("WHITE")){
@@ -54,7 +54,7 @@ public class ChessBoard {
                 }
             }
             System.out.print(SET_TEXT_COLOR_WHITE);
-            System.out.print(border);
+            System.out.print(BORDER);
             System.out.print(sides.get(y-1));
             System.out.print(RESET_BG_COLOR);
             System.out.print("\n");
@@ -66,7 +66,7 @@ public class ChessBoard {
                 y++;
             }
         }
-        System.out.print(border);
+        System.out.print(BORDER);
         System.out.print(topBottom);
         System.out.print(RESET_BG_COLOR + "\n");
         System.out.print(RESET_TEXT_BOLD_FAINT);

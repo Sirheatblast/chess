@@ -2,7 +2,6 @@ package client;
 
 import chess.ChessBoard;
 import model.AuthData;
-import model.UserData;
 import model.result.*;
 
 import java.util.Scanner;
@@ -10,10 +9,8 @@ import java.util.Scanner;
 public class ClientMain {
     private static boolean isLoggedIn = false;
     private static AuthData currentUser;
-    private static final Scanner scanner = new Scanner(System.in);
-    private static final ServerFacade facade = new ServerFacade();
-
-    private static final ChessBoard board = new ChessBoard();
+    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final ServerFacade FACADE = new ServerFacade();
 
     public static void main(String[] args) {
         while(true){
@@ -40,7 +37,7 @@ public class ClientMain {
         System.out.print("3: Help\n");
         System.out.print("4: Quit\n");
 
-        String input = scanner.next();
+        String input = SCANNER.next();
         switch (input){
             case "1":
                 isLoggedIn = registerUI();
@@ -69,16 +66,16 @@ public class ClientMain {
         System.out.print("\nRegister User:\n");
 
         System.out.print("\tUsername: ");
-        username = scanner.next();
+        username = SCANNER.next();
 
         System.out.print("\tPassword: ");
-        password = scanner.next();
+        password = SCANNER.next();
 
         System.out.print("\tEmail: ");
-        email = scanner.next();
+        email = SCANNER.next();
 
         try{
-            UserResult result = facade.createUser(username,password,email);
+            UserResult result = FACADE.createUser(username,password,email);
             if(result.getStatus()!= 200){
                 throw new Exception(result.getMessage());
             }
@@ -98,13 +95,13 @@ public class ClientMain {
         System.out.print("\nLogin User:\n");
 
         System.out.print("\tUsername: ");
-        username = scanner.next();
+        username = SCANNER.next();
 
         System.out.print("\tPassword: ");
-        password = scanner.next();
+        password = SCANNER.next();
 
         try{
-            UserResult result = facade.loginUser(username,password);
+            UserResult result = FACADE.loginUser(username,password);
             if(result.getStatus()!= 200){
                 throw new Exception(result.getMessage());
             }
@@ -144,7 +141,7 @@ public class ClientMain {
         System.out.print("6: Help\n");
         System.out.print("7: Quit\n");
 
-        String input = scanner.next();
+        String input = SCANNER.next();
         switch (input){
             case "1":
                 playGame();
@@ -177,7 +174,7 @@ public class ClientMain {
 
     private static void logoutUser() {
         try{
-            facade.logoutUser(currentUser);
+            FACADE.logoutUser(currentUser);
         }
         catch (Exception e){
             System.out.print("\nFailed to delete auth token\n");
@@ -202,20 +199,20 @@ public class ClientMain {
         String dColor;
 
         System.out.print("Enter ID of game: ");
-        int id = scanner.nextInt();
+        int id = SCANNER.nextInt();
         System.out.print("Enter Desired Color: ");
-        dColor = scanner.next();
+        dColor = SCANNER.next();
         dColor = dColor.toUpperCase();
 
         try{
             int gameID = getGameID(id);
 
-            GameResult result = facade.joinGame(currentUser,gameID,dColor);
+            GameResult result = FACADE.joinGame(currentUser,gameID,dColor);
             if(result.getStatus()!=200){
                 throw new Exception(result.getMessage());
             }
 
-            ui.ChessBoard.DrawBoard(result.getGameData().getGame().getBoard(),dColor);
+            ui.ChessBoard.drawBoard(result.getGameData().getGame().getBoard(),dColor);
         }
         catch (Exception e){
             System.out.printf("%s",e.getMessage());
@@ -224,7 +221,7 @@ public class ClientMain {
 
     private static void listGames(){
         try{
-            GameListResult result = facade.getGames(currentUser);
+            GameListResult result = FACADE.getGames(currentUser);
             if(result.getStatus()!= 200){
                 throw new Exception(result.getMessage());
             }
@@ -247,10 +244,10 @@ public class ClientMain {
     private static void createGame(){
         System.out.print("Enter game name: ");
         String gameName;
-        gameName = scanner.next();
+        gameName = SCANNER.next();
         try{
             GameRequest gameReq = new GameRequest(gameName,null,0);
-            GameResult result = facade.createGame(currentUser,gameReq);
+            GameResult result = FACADE.createGame(currentUser,gameReq);
             if(result.getStatus()!=200){
                 throw new Exception(result.getMessage());
             }
@@ -262,17 +259,17 @@ public class ClientMain {
 
     private static void observeGame(){
         System.out.print("Enter ID of game to observe: ");
-        int id = scanner.nextInt();
+        int id = SCANNER.nextInt();
 
         try{
             int gameID = getGameID(id);
 
-            GameResult result = facade.observeGame(currentUser,gameID);
+            GameResult result = FACADE.observeGame(currentUser,gameID);
             if(result.getStatus()!=200){
                 throw new Exception(result.getMessage());
             }
 
-            ui.ChessBoard.DrawBoard(result.getGameData().getGame().getBoard(),"WHITE");
+            ui.ChessBoard.drawBoard(result.getGameData().getGame().getBoard(),"WHITE");
         }
         catch (Exception e){
             System.out.print(e.getMessage());
@@ -280,7 +277,7 @@ public class ClientMain {
     }
 
     private static int getGameID(int id) throws Exception {
-        GameListResult listResult = facade.getGames(currentUser);
+        GameListResult listResult = FACADE.getGames(currentUser);
         if(listResult.getStatus()!= 200){
             throw new Exception(listResult.getMessage());
         }

@@ -1,8 +1,6 @@
-package serverInterface;
+package serverinterface;
 
 import model.AuthData;
-import model.result.GameRequest;
-import model.result.GameResult;
 
 import java.net.*;
 import java.net.http.*;
@@ -45,13 +43,6 @@ public class ServerInterface {
     }
 
     public String joinGame(AuthData authData, String gameReq)throws Exception{
-        var request = buildRequest("PUT", "game",gameReq, authData.getAuthToken());
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        return response.body();
-    }
-
-    public String observeGame(AuthData authData,String gameReq)throws Exception{
-
         var request = buildRequest("PUT", "game",gameReq, authData.getAuthToken());
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
         return response.body();
