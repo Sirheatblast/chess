@@ -114,7 +114,19 @@ public class ServerFacadeTests {
     }
 
     @Test
-    void observeGame() {
+    void observeGameSuccess() throws Exception {
+        UserResult userResult = facade.loginUser("GoodName","StrongPassword");
+        AuthData authToken =  new AuthData(userResult.getAuthToken(), userResult.getUsername());
+        GameResult result = facade.observeGame(authToken, 1);
+        assert (result.getStatus()==200);
+    }
+
+    @Test
+    void observeGameFailure() throws Exception{
+        UserResult userResult = facade.loginUser("GoodName","StrongPassword");
+        AuthData authToken =  new AuthData("Bad Token", userResult.getUsername());
+        GameResult result = facade.observeGame(authToken, 1);
+        assert (result.getStatus()!=200);
     }
 
 }
